@@ -1,16 +1,27 @@
+[http]
+  proxy = http://proxy-host:port
+[https]
+  proxy = http://proxy-host:port
 [alias]
-        st = status
-        ci = commit
-        co = checkout
-        br = branch
-        df = diff
-  dic = diff --cached
-  diffstat = diff --stat
+  st = status
+  co = checkout
+  br = branch
+  
+  ci = commit
   amend = commit --amend
-        who = shortlog -sne
-        lola = log --graph --decorate --pretty=oneline --abbrev-commit --all --date=local
-  oneline = log --pretty=oneline --abbrev-commit --graph
+  
+  df = diff
+  dfc = diff --cached
+  dfs = diff --stat
   changes = diff --name-status
+  
+  track = update-index --no-assume-unchanged
+  untrack = update-index --assume-unchanged
+  untracked = !git ls-files -v | grep "^[[:lower:]]"
+  
+  who = shortlog -sne
+  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all --date=local
+  oneline = log --pretty=oneline --abbrev-commit --graph
   lc = !git oneline ORIG_HEAD.. --stat --no-merges
   addm = !git-ls-files -m -z | xargs -0 git-add && git status
   addu = !git-ls-files -o --exclude-standard -z | xargs -0 git-add && git status
@@ -18,6 +29,7 @@
   mate = !git-ls-files -m -z | xargs -0 mate
   mateall = !git-ls-files -m -o --exclude-standard -z | xargs -0 mate
 [core]
-        excludesfile = /path/to/global/.gitignore
-[push]
-        default = matching
+  excludesfile = /path/to/global/.gitignore
+[user]
+  name = Pierrick Rassat
+  email = pierrick.rassat@gmail.com
