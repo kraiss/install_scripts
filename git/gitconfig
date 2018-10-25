@@ -2,6 +2,13 @@
   proxy = http://proxy-host:port
 [https]
   proxy = http://proxy-host:port
+[core]
+  excludesfile = /path/to/global/.gitignore
+[pull]
+	rebase = true
+[user]
+  name = Pierrick Rassat
+  email = pierrick.rassat@gmail.com
 [alias]
   st = status
   co = checkout
@@ -9,6 +16,9 @@
   
   ci = commit
   amend = commit --amend
+  fast-amend = !git add . && git commit --amend --no-edit
+
+  push-up = !git rev-parse --abbrev-ref HEAD | xargs git push -u origin $1
   
   df = diff
   dfc = diff --cached
@@ -18,18 +28,16 @@
   track = update-index --no-assume-unchanged
   untrack = update-index --assume-unchanged
   untracked = !git ls-files -v | grep "^[[:lower:]]"
+  unstash = stash apply
   
-  who = shortlog -sne
+  last = log -n 3
   lola = log --graph --decorate --pretty=oneline --abbrev-commit --all --date=local
   oneline = log --pretty=oneline --abbrev-commit --graph
+  
+  who = shortlog -sne
   lc = !git oneline ORIG_HEAD.. --stat --no-merges
   addm = !git-ls-files -m -z | xargs -0 git-add && git status
   addu = !git-ls-files -o --exclude-standard -z | xargs -0 git-add && git status
   rmm = !git ls-files -d -z | xargs -0 git-rm && git status
   mate = !git-ls-files -m -z | xargs -0 mate
   mateall = !git-ls-files -m -o --exclude-standard -z | xargs -0 mate
-[core]
-  excludesfile = /path/to/global/.gitignore
-[user]
-  name = Pierrick Rassat
-  email = pierrick.rassat@gmail.com
