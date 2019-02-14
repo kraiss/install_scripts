@@ -1,18 +1,6 @@
-[http]
-  proxy = http://proxy-host:port
-[https]
-  proxy = http://proxy-host:port
-[core]
-  excludesfile = /path/to/global/.gitignore
-[pull]
-	rebase = true
-[user]
-  name = Pierrick Rassat
-  email = pierrick.rassat@gmail.com
 [alias]
   st = status
   co = checkout
-  br = branch
   
   ci = commit
   amend = commit --amend
@@ -24,6 +12,11 @@
   dfc = diff --cached
   dfs = diff --stat
   changes = diff --name-status
+  
+  br = branch
+  bra = branch -a
+  bra-date = branch -a --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(committerdate:relative)'
+  bra-date-full = branch -a --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(committerdate:relative) \n\t %(contents:subject) - %(authorname) - %(color:red)sha:%(objectname)%(color:reset)'
   
   track = update-index --no-assume-unchanged
   untrack = update-index --assume-unchanged
@@ -41,3 +34,14 @@
   rmm = !git ls-files -d -z | xargs -0 git-rm && git status
   mate = !git-ls-files -m -z | xargs -0 mate
   mateall = !git-ls-files -m -o --exclude-standard -z | xargs -0 mate
+[core]
+  excludesfile = /path/to/global/.gitignore
+[pull]
+  rebase = true
+[http]
+  proxy = http://proxy-host:port
+[https]
+  proxy = http://proxy-host:port
+[user]
+  name = Pierrick Rassat
+  email = pierrick.rassat@gmail.com
