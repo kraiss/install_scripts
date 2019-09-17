@@ -7,6 +7,7 @@
   fast-amend = !git add . && git commit --amend --no-edit
 
   push-up = !git rev-parse --abbrev-ref HEAD | xargs git push -u origin $1
+  rebased-push = !git rev-parse --abbrev-ref HEAD | xargs git brd $1 | xargs git push -u origin $1
   
   df = diff
   dfc = diff --cached
