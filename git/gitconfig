@@ -1,13 +1,18 @@
 [alias]
   st = status
+  
   co = checkout
+  main = !git branch-get-default | xargs git switch $1
+  feature = !sh -c 'git main && git pull && git switch -c feature/$1' - 
+  bugfix = !sh -c 'git main && git pull && git switch -c bugfix/$1' - 
+  mainrebase = !sh -c 'CURRENT=$(git branch-current) && MAIN=$(git branch-get-default) && git main && git pull && git switch $CURRENT && git rebase $MAIN'
   
   ci = commit
   amend = commit --amend
   fast-amend = !git add . && git commit --amend --no-edit
 
-  push-up = !git rev-parse --abbrev-ref HEAD | xargs git push -u origin $1
-  rebased-push = !git rev-parse --abbrev-ref HEAD | xargs git brd $1 | xargs git push -u origin $1
+  pushup = !git rev-parse --abbrev-ref HEAD | xargs git push -u origin $1
+  pushupf = !git rev-parse --abbrev-ref HEAD | xargs git brd $1 | xargs git push -u origin $1
   
   df = diff
   dfc = diff --cached
@@ -15,7 +20,10 @@
   changes = diff --name-status
   
   br = branch
+  brd = !sh -c 'git push origin :$1' - 
   bra = branch -a
+  branch-current = rev-parse --abbrev-ref HEAD
+  branch-get-default = !git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'
   bra-date = branch -a --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(committerdate:relative)'
   bra-date-full = branch -a --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(committerdate:relative) \n\t %(contents:subject) - %(authorname) - %(color:red)sha:%(objectname)%(color:reset)'
   
@@ -25,16 +33,10 @@
   unstash = stash apply
   
   last = log -n 3
+  lc = !git oneline ORIG_HEAD.. --stat --no-merges
   lola = log --graph --decorate --pretty=oneline --abbrev-commit --all --date=local
   oneline = log --pretty=oneline --abbrev-commit --graph
-  
   who = shortlog -sne
-  lc = !git oneline ORIG_HEAD.. --stat --no-merges
-  addm = !git-ls-files -m -z | xargs -0 git-add && git status
-  addu = !git-ls-files -o --exclude-standard -z | xargs -0 git-add && git status
-  rmm = !git ls-files -d -z | xargs -0 git-rm && git status
-  mate = !git-ls-files -m -z | xargs -0 mate
-  mateall = !git-ls-files -m -o --exclude-standard -z | xargs -0 mate
 [core]
   excludesfile = /path/to/global/.gitignore
 [pull]
