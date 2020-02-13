@@ -2,30 +2,45 @@
   st = status
   
   co = checkout
-  main = !git branch-get-default | xargs git switch $1
-  feature = !sh -c 'git main && git pull && git switch -c feature/$1' - 
-  bugfix = !sh -c 'git main && git pull && git switch -c bugfix/$1' - 
-  mainrebase = !sh -c 'CURRENT=$(git branch-current) && MAIN=$(git branch-get-default) && git main && git pull && git switch $CURRENT && git rebase $MAIN'
-  
-  ci = commit
+  sw = switch
+  main = !git branch-get-default | xargs git switch $1 
+  mrebase = !sh -c 'CURRENT=$(git branch-current) && MAIN=$(git branch-get-default) && git mupdate && git switch $CURRENT && git rebase $MAIN'
+  mupdate = !git main && git pull --rebase && git fetch -p
+  feature = !sh -c 'git mupdate && git switch -c feature/$1' - 
+  bugfix = !sh -c 'git mupdate && git switch -c bugfix/$1' - 
+
+  ci = commit 
+  cm = !sh -c 'git commit -m \"$1\"' - 
   amend = commit --amend
-  fast-amend = !git add . && git commit --amend --no-edit
+  amendf = !git add . && git commit --amend --no-edit
+  resetn = !sh -c 'git reset --soft HEAD~$1' - 
+  back = resetn 1
+  resetnf = !sh -c 'git reset --hard HEAD~$1' - 
+  backf = resetnf 1
+  
+  rebasein = !sh -c 'git rebase -i HEAD~$1' - 
+  rebasec = rebase --continue
+  squashn = !sh -c 'git resetn $1 && git commit' - 
+  squashnf = !sh -c 'git resetn $1 && git commit --edit -m"$(git log --format=%B --reverse HEAD..HEAD@{1})"' - 
+  
+  pick = cherry-pick
 
   pushup = !git rev-parse --abbrev-ref HEAD | xargs git push -u origin $1
-  pushupf = !git rev-parse --abbrev-ref HEAD | xargs git brd $1 | xargs git push -u origin $1
+  pushf = !git rev-parse --abbrev-ref HEAD | xargs git push -u origin $1 --force-with-lease
+  pushff = !git rev-parse --abbrev-ref HEAD | xargs git brd $1 | xargs git push -u origin $1
   
   df = diff
   dfc = diff --cached
   dfs = diff --stat
   changes = diff --name-status
   
-  br = branch
+  br = branch -vv
   brd = !sh -c 'git push origin :$1' - 
   bra = branch -a
   branch-current = rev-parse --abbrev-ref HEAD
   branch-get-default = !git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'
-  bra-date = branch -a --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(committerdate:relative)'
-  bra-date-full = branch -a --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(committerdate:relative) \n\t %(contents:subject) - %(authorname) - %(color:red)sha:%(objectname)%(color:reset)'
+  bradate = branch -a --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(committerdate:relative)'
+  brafull = branch -a --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(committerdate:relative) \n\t %(contents:subject) - %(authorname) - %(color:red)sha:%(objectname)%(color:reset)'
   
   track = update-index --no-assume-unchanged
   untrack = update-index --assume-unchanged
