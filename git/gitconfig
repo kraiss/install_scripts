@@ -1,5 +1,6 @@
 [alias]
   st = status
+  debug = !GIT_TRACE=1 git
   
   co = checkout
   sw = switch
@@ -11,6 +12,8 @@
 
   ci = commit 
   cm = !sh -c 'git commit -m \"$1\"' - 
+  cam = !sh -c 'git commit -am \"$1\"' - 
+  patch = !sh -c 'git commit -am \"$1\" && git pull --rebase && git push' -
   amend = commit --amend
   amendf = !git add . && git commit --amend --no-edit
   resetn = !sh -c 'git reset --soft HEAD~$1' - 
