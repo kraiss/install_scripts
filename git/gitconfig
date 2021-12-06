@@ -38,6 +38,7 @@
 
   br = branch -vv
   brd = !sh -c 'git push origin :$1' -
+  brm = !sh -c 'git br -D $@' -
   bra = branch -a
   brr = branch -r
   branch-current = rev-parse --abbrev-ref HEAD
