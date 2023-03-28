@@ -1,91 +1,93 @@
 [user]
-  name = XXX
-  email = x.x@x.com
-  signingkey = XXX
+	name = Pierrick Rassat
+	email = pierrick.rassat@inovatel.com
+	signingkey = DF95B8EFAE449D1A
 [alias]
-  debug = !GIT_TRACE=1 git
-  # Execute a git command in subfolders
-  all = !"for f in *; do echo '---' && echo $f && git -C $f $@; done; echo completed git all "
+	debug = !GIT_TRACE=1 git
+	# Execute a git command in subfolders
+	all = !"for f in *; do echo '---' && echo $f && git -C $f $@; done; echo completed git all "
 
-  # helper aliases
-  branch-current = rev-parse --abbrev-ref HEAD
-  branch-get-default = !git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'
-  main = !git branch-get-default | xargs git switch $1
+	# helper aliases
+	branch-current = rev-parse --abbrev-ref HEAD
+	branch-get-default = !git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'
+	main = !git branch-get-default | xargs git switch $1
 
-  # Basic aliases
-  ci = commit
-  cam = commit -am
-  cm = commit -m
-  co = checkout
-  cob = checkout -b
-  df = diff
-  pick = cherry-pick
-  rebc = rebase --continue
-  rebdrop = rebase --abort
-  st = status
-  sw = switch
-  unstash = stash apply
+	# Basic aliases
+	ci = commit
+	cam = commit -am
+	cm = commit -m
+	co = checkout
+	cob = checkout -b
+	df = diff
+	pick = cherry-pick
+	rebc = rebase --continue
+	rebdrop = rebase --abort
+	st = status
+	sw = switch
+	unstash = stash apply
 
-  # Rebase and pull aliases
-  rebasein = !sh -c 'git rebase -i HEAD~$1'
-  ## Rebase current on main branch
-  mrebase = !sh -c 'git brmrebase \"$(git branch-current)\"' -
-  ## Rebase branch on main branch
-  brmrebase = !sh -c 'MAIN=$(git branch-get-default) && git mupdate && git switch \"$1\" && git rebase $MAIN' -
-  ## Switch to main branch, pull and fetch
-  mupdate = !git main && git pull --rebase && git fetch -p
+	# Rebase and pull aliases
+	rebasein = !sh -c 'git rebase -i HEAD~$1'
+	## Rebase current on main branch
+	mrebase = !sh -c 'git brmrebase \"$(git branch-current)\"' -
+	## Rebase branch on main branch
+	brmrebase = !sh -c 'MAIN=$(git branch-get-default) && git mupdate && git switch \"$1\" && git rebase $MAIN' -
+	## Switch to main branch, pull and fetch
+	mupdate = !git main && git pull --rebase && git fetch -p
 
-  # Amend and reset aliases
-  amend = commit --amend
-  resetn = !sh -c 'git reset --soft HEAD~$1'
-  ## Fast amend - take current changes and apply on previous commit
-  amendf = !git add . && git commit --amend --no-edit
-  ## Reset soft the previous commit
-  back = resetn 1
-  ## Reset hard current changes
-  drop = reset --hard
+	# Amend and reset aliases
+	amend = commit --amend
+	resetn = !sh -c 'git reset --soft HEAD~$1'
+	## Fast amend - take current changes and apply on previous commit
+	amendf = !git add . && git commit --amend --no-edit
+	## Reset soft the previous commit
+	back = resetn 1
+	## Reset hard current changes
+	drop = reset --hard
 
-  # Commit, amend and push aliases
-  ## Fast commit - take current changes, commit and push
-  patch = !sh -c 'git add . && git commit -m \"$1\" && git pull --rebase && git push' -
-  ## Commit current changes with "WIP" as message
-  wip = !git add . && git ci -m WIP
+	# Commit, amend and push aliases
+	## Fast commit - take current changes, commit and push
+	patch = !sh -c 'git add . && git commit -m \"$1\" && git pull --rebase && git push' -
+	## Commit current changes with "WIP" as message
+	wip = !git add . && git ci -m WIP
 
-  # git push aliases
-  pushup = !git rev-parse --abbrev-ref HEAD | xargs git push -u origin $1
-  pushf = !git rev-parse --abbrev-ref HEAD | xargs git push -u origin $1 --force-with-lease
-  pushff = !git rev-parse --abbrev-ref HEAD | xargs git brd $1 | xargs git push -u origin $1
+	# git push aliases
+	pushup = !git rev-parse --abbrev-ref HEAD | xargs git push -u origin $1
+	pushf = !git rev-parse --abbrev-ref HEAD | xargs git push -u origin $1 --force-with-lease
+	pushff = !git rev-parse --abbrev-ref HEAD | xargs git brd $1 | xargs git push -u origin $1
 
-  # git branch aliases
-  br = branch -vv
-  bra = branch -a
-  brr = branch -r
-  brd = !git push origin :$1
-  brm = !git br -D $@
-  ## Delete all but current branch, it cleans up your local state
-  brclean = !git main && git branch | grep -v $(git branch-get-default) | xargs git br -D $1
-  ## List branches with some additional insights
-  bradate = branch -a --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(committerdate:relative)'
-  brafull = branch -a --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(committerdate:relative) \n\t %(contents:subject) - %(authorname) - %(color:red)sha:%(objectname)%(color:reset)'
+	# git branch aliases
+	br = branch -vv
+	bra = branch -a
+	brr = branch -r
+	brd = !git push origin :$1
+	brm = !git br -D $@
+	## Delete all but current branch, it cleans up your local state
+	brclean = !git main && git branch | grep -v $(git branch-get-default) | xargs git br -D $1
+	## List branches with some additional insights
+	bradate = branch -a --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(committerdate:relative)'
+	brafull = branch -a --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(committerdate:relative) \n\t %(contents:subject) - %(authorname) - %(color:red)sha:%(objectname)%(color:reset)'
 
-  # git update-index aliases
-  track = update-index --no-assume-unchanged
-  untrack = update-index --assume-unchanged
-  untracked = !git ls-files -v | grep "^[[:lower:]]"
+	# git update-index aliases
+	track = update-index --no-assume-unchanged
+	untrack = update-index --assume-unchanged
+	untracked = !git ls-files -v | grep "^[[:lower:]]"
 
-  # git log aliases
-  last = log -n 5 --oneline
-  lc = !git oneline ORIG_HEAD.. --stat --no-merges
-  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all --date=local
-  oneline = log --pretty=oneline --abbrev-commit --graph
-  who = shortlog -sne
+	# git log aliases
+	last = log -n 5 --oneline
+	lc = !git oneline ORIG_HEAD.. --stat --no-merges
+	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all --date=local
+	oneline = log --pretty=oneline --abbrev-commit --graph
+	who = shortlog -sne
 [pull]
-  rebase = merges
+	rebase = merges
 [rerere]
 	enabled = 1
 	autoupdate = 1
 [commit]
-  gpgsign = true
+	gpgsign = true
+[core]
+	commentChar = ";"
 [color]
 	ui = auto
 [color "branch"]
