@@ -36,10 +36,10 @@
 	mupdate = !git main && git pull --rebase && git fetch -p
 
 	# Amend and reset aliases
-	amend = commit --amend
+	amend-edit = commit --amend
 	resetn = !sh -c 'git reset --soft HEAD~$1'
 	## Fast amend - take current changes and apply on previous commit
-	amendf = !git add . && git commit --amend --no-edit
+	amend = commit --amend --no-edit
 	## Reset soft the previous commit
 	back = resetn 1
 	## Reset hard current changes
@@ -87,7 +87,7 @@
 [commit]
 	gpgsign = true
 [core]
-	commentChar = ";"
+	commentChar = "#"
 [color]
 	ui = auto
 [color "branch"]
