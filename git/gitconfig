@@ -6,6 +6,8 @@
 	debug = !GIT_TRACE=1 git
 	# Execute a git command in subfolders
 	all = !"for f in *; do echo '---' && echo $f && git -C $f $@; done; echo completed git all "
+	# For when your mind wander and you type git twice
+	git = !sh -c 'git $1' -
 
 	# helper aliases
 	branch-current = rev-parse --abbrev-ref HEAD
@@ -60,8 +62,8 @@
 	br = branch -vv
 	bra = branch -a
 	brr = branch -r
-	brd = !git push origin :$1
-	brm = !git br -D $@
+	brd = !sh -c 'git push origin :$1' -
+	brm = !sh -c 'git br -D $@' -
 	## Delete all but current branch, it cleans up your local state
 	brclean = !git main && git branch | grep -v $(git branch-get-default) | xargs git br -D $1
 	## List branches with some additional insights
@@ -87,7 +89,7 @@
 [commit]
 	gpgsign = true
 [core]
-	commentChar = "#"
+	commentChar = ";"
 [color]
 	ui = auto
 [color "branch"]
