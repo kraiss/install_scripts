@@ -10,9 +10,9 @@
 	git = !sh -c 'git $1' -
 
 	# helper aliases
-	branch-current = rev-parse --abbrev-ref HEAD
+	branch-get-current = rev-parse --abbrev-ref HEAD
 	branch-get-default = !git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'
-	main = !git branch-get-default | xargs git switch $1
+	switch-main = !git branch-get-default | xargs git switch $1
 
 	# Basic aliases
 	ci = commit
@@ -23,25 +23,29 @@
 	df = diff
 	pick = cherry-pick
 	rebc = rebase --continue
-	rebdrop = rebase --abort
+	reba = rebase --abort
 	st = status
 	sw = switch
 	unstash = stash apply
 
 	# Rebase and pull aliases
-	rebasein = !sh -c 'git rebase -i HEAD~$1'
+	rebi = !sh -c 'git rebase -i HEAD~$1'
 	## Rebase current on main branch
-	mrebase = !sh -c 'git brmrebase \"$(git branch-current)\"' -
+	main-rebase = !sh -c 'git branch-main-rebase \"$(git branch-get-current)\"' -
+	mainreb = main-rebase
 	## Rebase branch on main branch
-	brmrebase = !sh -c 'MAIN=$(git branch-get-default) && git mupdate && git switch \"$1\" && git rebase $MAIN' -
+	branch-main-rebase = !sh -c 'MAIN=$(git branch-get-default) && git main-update && git switch \"$1\" && git rebase $MAIN' -
 	## Switch to main branch, pull and fetch
-	mupdate = !git main && git pull --rebase && git fetch -p
+	main-update = !git switch-main && git pull --rebase && git fetch -p
+	mainup = main-update
 
-	# Amend and reset aliases
-	amend-edit = commit --amend
+	# Amend aliases
+	amend = commit --amend
+	amendf = commit --amend --no-edit
+
+	# Reset aliases
 	resetn = !sh -c 'git reset --soft HEAD~$1'
 	## Fast amend - take current changes and apply on previous commit
-	amend = commit --amend --no-edit
 	## Reset soft the previous commit
 	back = resetn 1
 	## Reset hard current changes
@@ -64,8 +68,8 @@
 	brr = branch -r
 	brd = !sh -c 'git push origin :$1' -
 	brm = !sh -c 'git br -D $@' -
-	## Delete all but current branch, it cleans up your local state
-	brclean = !git main && git branch | grep -v $(git branch-get-default) | xargs git br -D $1
+	## Delete all but the main branch, it cleans up your local state
+	brclean = !git switch-main && git branch | grep -v $(git branch-get-default) | xargs git br -D $1
 	## List branches with some additional insights
 	bradate = branch -a --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(committerdate:relative)'
 	brafull = branch -a --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(committerdate:relative) \n\t %(contents:subject) - %(authorname) - %(color:red)sha:%(objectname)%(color:reset)'
