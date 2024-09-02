@@ -1,0 +1,21 @@
+---
+profile: production
+exclude_paths:
+  - "**/files/*"
+
+use_default_rules: true
+enable_list:
+  - args
+  - empty-string-compare # opt-in
+  - no-log-password # opt-in
+  - no-same-owner # opt-in
+  - name[prefix] # opt-in
+  - yaml
+
+offline: true
+
+kinds:
+  - playbook: "macos-playbook.{yml,yaml}"
+  - tasks: "**/tasks/*.yml"
+  - vars: "**/vars/*.yml"
+  - handlers: "**/handlers/*.yml"

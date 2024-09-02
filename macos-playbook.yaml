@@ -1,0 +1,45 @@
+---
+- name: Configure your mac
+  become_method: ansible.builtin.sudo
+  hosts: all
+  vars_prompt:
+    - name: install_spotify
+      prompt: Do you want to install spotify (yes/no)?
+      private: false
+  tasks:
+    - name: Install from homebrew
+      community.general.homebrew:
+        update_homebrew: true
+        name: "{{ item }}"
+        state: present
+      loop:
+        - maven
+        - nvm
+        - ansible-lint
+        - zsh-syntax-highlighting
+    - name: Install from homebrew casks
+      community.general.homebrew_cask:
+        update_homebrew: true
+        name: "{{ item }}"
+        state: present
+      loop:
+        - coconutbattery
+        - discord
+        - firefox
+        - google-chrome
+        - keeweb
+        - slack
+    - name: Setup default .zshrc and .gitconfig
+      ansible.builtin.copy:
+        src: "files/{{ item }}"
+        dest: "~/{{ item }}"
+        mode: '0644'
+      loop:
+        - .zshrc
+        - .gitconfig
+    - name: Install Spotify
+      community.general.homebrew_cask:
+        update_homebrew: true
+        name: spotify
+        state: present
+      when: install_spotify | bool

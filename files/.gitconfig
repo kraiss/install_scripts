@@ -94,6 +94,7 @@
 	gpgsign = true
 [core]
 	commentChar = ";"
+	autocrlf = input
 [color]
 	ui = auto
 [color "branch"]
