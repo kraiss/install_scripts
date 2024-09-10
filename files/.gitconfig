@@ -1,7 +1,7 @@
 [user]
 	name = Pierrick Rassat
-	email = pierrick.rassat@inovatel.com
-	signingkey = DF95B8EFAE449D1A
+	email = pierrick.rassat@kelkoogroup.com
+	signingkey = CBC4BC645B1047AB
 [alias]
 	debug = !GIT_TRACE=1 git
 	# Execute a git command in subfolders

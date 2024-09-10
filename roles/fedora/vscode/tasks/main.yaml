@@ -1,0 +1,14 @@
+- name: Import Microsoft key for vscode
+  become: true
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://packages.microsoft.com/keys/microsoft.asc
+- name: Added Microsoft vscode repo
+  ansible.builtin.copy:
+    src: "files/vscode.repo"
+    dest: "/etc/yum.repos.d/vscode.repo"
+  become: true
+- name: Install vscode
+  ansible.builtin.dnf:
+    name: "code"
+    state: latest

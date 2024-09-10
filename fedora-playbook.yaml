@@ -1,0 +1,33 @@
+---
+- name: Configure local Fedora
+  become_method: ansible.builtin.sudo
+  hosts: all
+  vars_prompt:
+    - name: install_vscode
+      prompt: Do you want to install VS Code (yes/no)?
+      private: false
+  roles:
+    - role: 'roles/fedora/firmware'
+      become: true
+    - role: 'roles/fedora/vscode'
+      when: install_vscode | bool
+      become: true
+  tasks:
+    - name: Install from dnf
+      ansible.builtin.dnf:
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - ansible-lint
+        - discord
+        - zsh-syntax-highlighting
+      become: true
+    - name: Setup default .zshrc and .gitconfig
+      ansible.builtin.copy:
+        src: "files/{{ item }}"
+        dest: "~/{{ item }}"
+        mode: '0644'
+      loop:
+        - .zshrc
+        - .gitconfig
+        - .ssh/config

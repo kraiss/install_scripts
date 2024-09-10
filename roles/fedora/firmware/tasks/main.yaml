@@ -1,0 +1,6 @@
+- name: Firmware mgr refresh
+  ansible.builtin.command: 'fwupdmgr refresh --force'
+  become: true
+- name: Firmware update
+  ansible.builtin.command: 'fwupdmgr update'
+  become: true
