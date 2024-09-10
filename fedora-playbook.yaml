@@ -13,7 +13,8 @@
       when: install_vscode | bool
       become: true
   tasks:
-    - name: Install from dnf
+    - name: Install from dnf - {{ item }}
+      become: true
       ansible.builtin.dnf:
         name: "{{ item }}"
         state: latest
@@ -21,8 +22,15 @@
         - ansible-lint
         - discord
         - zsh-syntax-highlighting
+    - name: Install firefox deps - {{ item }}
       become: true
-    - name: Setup default .zshrc and .gitconfig
+      ansible.builtin.dnf:
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - gstreamer1-plugin-openh264
+        - mozilla-openh264
+    - name: Copy default shell files - {{ item }}
       ansible.builtin.copy:
         src: "files/{{ item }}"
         dest: "~/{{ item }}"
