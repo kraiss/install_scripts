@@ -12,21 +12,15 @@
 - name: Install additional firefox codec (see https://pagure.io/fedora-workstation/issue/84) 
   become: true
   ansible.builtin.dnf:
-    name: "{{ item }}"
+    name: "gstreamer1-plugin-openh264 mozilla-openh264"
     state: latest
-  loop:
-    - gstreamer1-plugin-openh264
-    - mozilla-openh264
 - name: Maven
   block:
     - name: Maven - Remove conflicting if present
       become: true
       ansible.builtin.dnf:
-        name: "{{ item }}"
+        name: "maven maven-lib"
         state: absent
-      loop:
-        - maven
-        - maven-lib
     - name: Maven - Create workdirs
       ansible.builtin.file:
         path: "{{ item }}"
@@ -86,10 +80,7 @@
         state: latest
     - name: npm - Add kelkoo repo configs
       ansible.builtin.shell: "npm config set {{ item }}" 
-      loop:
-        - "registry=https://artifactory.corp.kelkoo.net/artifactory/api/npm/npm-remote-repos/"
-        - "@kelkoo:registry=https://artifactory.corp.kelkoo.net/artifactory/api/npm/npm-release-local/"
-        - "cafile /usr/share/pki/ca-trust-source/anchors/ca-kelkoogroup-2019.pem"
+      loop: {{ kelkoo.npm.config_list }}
 - name: Python
   block:
     - name: Python - Install python-pip
@@ -111,11 +102,8 @@
     - name: podman - Install podman
       become: true
       ansible.builtin.dnf:
-        name: "{{ item }}"
+        name: "podman podman-docker"
         state: latest
-      loop: 
-        - podman
-        - podman-docker
     - name: podman - Create pip conf dir
       ansible.builtin.file:
         path: "~/.config/containers/"

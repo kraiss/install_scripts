@@ -8,11 +8,17 @@ ansible-playbook setup.yaml -K
 source .kelkoorc; switch_mvn 3.9.4
 ```
 
-# TODO manually for now
+## Still manually for now
 
 ```sh
+# Generate ssh
 ssh-keygen -t ed25519 -C "pierrick.rassat"
+
+# Generate gpg
 gpg --full-generate-key
 gpg --list-secret-keys --keyid-format=long
 gpg --armor --export <key>
+
+# Make zsh default shell
+chsh -s $(which zsh)
 ```
