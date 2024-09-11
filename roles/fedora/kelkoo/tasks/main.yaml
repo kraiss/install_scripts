@@ -1,0 +1,72 @@
+---
+- name: Install kelkoo packages
+  become: true
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - ca-certificates-kelkoogroup
+    - kelkoo-dev-tools 
+    - java-21-openjdk-devel
+    - discord
+    - sbt
+- name: Install additional firefox codec (see https://pagure.io/fedora-workstation/issue/84) 
+  become: true
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - gstreamer1-plugin-openh264
+    - mozilla-openh264
+- name: Maven setup
+  block:
+    - name: Maven - Remove conflicting if present
+      become: true
+      ansible.builtin.dnf:
+        name: "{{ item }}"
+        state: absent
+      loop:
+        - maven
+        - maven-lib
+    - name: Maven - Create workdirs
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+      loop:
+        - "~/.m2"
+        - "~/.sbt"
+        - "~/apache-maven"
+    - name: Maven - Configure Kelkoo Maven repos
+      ansible.builtin.get_url:
+        url: "{{ fedora_kelkoo.maven.settings }}"
+        dest: "~/.m2/settings.xml"
+        mode: '0644'
+    - name: Maven - shell config 
+      ansible.builtin.copy:
+        src: "files/.kelkoorc"
+        dest: "~/.kelkoorc"
+        mode: '0644'
+    - name: Maven - shell config import
+      ansible.builtin.lineinfile:
+        path: "{{ item }}"
+        line: "source ~/.kelkoorc"
+      loop: 
+        - "~/.bashrc"
+        - "~/.zshrc"
+    - name: Maven - Download binaries
+      ansible.builtin.unarchive:
+        src: "{{ fedora_kelkoo.maven.package }}"
+        dest: "~/apache-maven"
+        remote_src: yes
+- name: sbt setup
+  block:
+    - name: sbt - Add build repo override option
+      become: true
+      ansible.builtin.lineinfile:
+        path: "/etc/sbt/sbtopts"
+        line: "-Dsbt.override.build.repos=true"
+    - name: sbt - Configure kelkoo sbt repos
+      ansible.builtin.copy:
+        src: "sbt-repositories"
+        dest: "~/.sbt/repositories"
+        mode: '0644'

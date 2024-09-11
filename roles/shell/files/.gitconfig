@@ -87,6 +87,7 @@
 	who = shortlog -sne
 [pull]
 	rebase = merges
+	ff = only
 [rerere]
 	enabled = 1
 	autoupdate = 1

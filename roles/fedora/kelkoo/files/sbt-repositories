@@ -1,0 +1,8 @@
+[repositories]
+local
+ 
+#### artifactory.corp.kelkoo.net
+ivy-proxy-releases: https://artifactory.corp.kelkoo.net/artifactory/ivy-remote-repos/, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext]
+kelkoo-releases-repo: https://artifactory.corp.kelkoo.net/artifactory/internal-releases
+kelkoo-snapshots-repo: https://artifactory.corp.kelkoo.net/artifactory/internal-snapshots
+external: https://artifactory.corp.kelkoo.net/artifactory/external

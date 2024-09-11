@@ -1,0 +1,24 @@
+---
+- name: Copy zshrc config
+  ansible.builtin.copy:
+    src: "files/.zshrc"
+    dest: "~/.zshrc"
+    mode: '0644'
+- name: Copy git config
+  ansible.builtin.copy:
+    src: "files/.gitconfig"
+    dest: "~/.gitconfig"
+    mode: '0644'
+- name: Copy basic ssh config
+  ansible.builtin.copy:
+    src: "files/.ssh/config"
+    dest: "~/.ssh/config"
+    mode: '0644'
+- name: Install from dnf - {{ item }}
+  become: true
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - ansible-lint
+    - zsh-syntax-highlighting

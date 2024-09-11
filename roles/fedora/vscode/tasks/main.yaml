@@ -4,11 +4,12 @@
     state: present
     key: https://packages.microsoft.com/keys/microsoft.asc
 - name: Added Microsoft vscode repo
+  become: true
   ansible.builtin.copy:
     src: "files/vscode.repo"
     dest: "/etc/yum.repos.d/vscode.repo"
-  become: true
 - name: Install vscode
+  become: true
   ansible.builtin.dnf:
     name: "code"
     state: latest

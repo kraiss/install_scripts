@@ -4,6 +4,8 @@
 git clone git@github.com:kraiss/install_scripts.git kraiss
 sudo dnf install ansible -y
 ansible-playbook fedora-playbook.yaml -K
+# At Kelkoo
+source .kelkoorc; switch_mvn 3.9.4
 ```
 
 # MAC OS
