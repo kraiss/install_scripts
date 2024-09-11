@@ -14,7 +14,7 @@
     src: "files/.ssh/config"
     dest: "~/.ssh/config"
     mode: '0644'
-- name: Install from dnf - {{ item }}
+- name: Install from dnf
   become: true
   ansible.builtin.dnf:
     name: "{{ item }}"
