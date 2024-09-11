@@ -1,4 +1,4 @@
-fedora_kelkoo:
+kelkoo:
   maven:
     settings: http://gitlab.corp.kelkoo.net/pack-conf/maven-configuration/-/raw/master/src/main/rpm/etc/maven/settings.xml
     package: https://artifactory.corp.kelkoo.net/artifactory/external/org/apache/maven/apache-maven/3.9.4/apache-maven-3.9.4-bin.tar.gz

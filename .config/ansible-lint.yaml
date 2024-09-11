@@ -15,7 +15,7 @@ enable_list:
 offline: true
 
 kinds:
-  - playbook: "macos-playbook.{yml,yaml}"
+  - playbook: "setup.{yml,yaml}"
   - tasks: "**/tasks/*.yml"
   - vars: "**/vars/*.yml"
   - handlers: "**/handlers/*.yml"

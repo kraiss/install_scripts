@@ -9,7 +9,6 @@
     - kelkoo-dev-tools 
     - java-21-openjdk-devel
     - discord
-    - nodejs
 - name: Install additional firefox codec (see https://pagure.io/fedora-workstation/issue/84) 
   become: true
   ansible.builtin.dnf:
@@ -37,7 +36,7 @@
         - "~/apache-maven"
     - name: Maven - Configure Kelkoo Maven repos
       ansible.builtin.get_url:
-        url: "{{ fedora_kelkoo.maven.settings }}"
+        url: "{{ kelkoo.maven.settings }}"
         dest: "~/.m2/settings.xml"
         mode: '0644'
     - name: Maven - shell config 
@@ -54,7 +53,7 @@
         - "~/.zshrc"
     - name: Maven - Download binaries
       ansible.builtin.unarchive:
-        src: "{{ fedora_kelkoo.maven.package }}"
+        src: "{{ kelkoo.maven.package }}"
         dest: "~/apache-maven"
         remote_src: yes
 - name: sbt

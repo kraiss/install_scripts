@@ -1,22 +1,11 @@
-# Fedora
+# Fedora @ Kelkoo Group
 
 ```sh
 git clone git@github.com:kraiss/install_scripts.git kraiss
 sudo dnf install ansible -y
-ansible-playbook fedora-playbook.yaml -K
+ansible-playbook setup.yaml -K
 # At Kelkoo
 source .kelkoorc; switch_mvn 3.9.4
-```
-
-# MAC OS
-
-* Install [Homebrew](https://docs.brew.sh/Installation)
-* Install Ansible and execute playbook
-
-```sh
-brew install ansible
-ansible-galaxy collection install community.general
-ansible-playbook macos-playbook.yaml -K
 ```
 
 # TODO manually for now

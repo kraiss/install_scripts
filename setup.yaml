@@ -13,10 +13,10 @@
       prompt: Do you want to install VS Code (yes/no)?
       private: false
   roles:
-    - role: 'roles/fedora/firmware'
+    - role: 'roles/firmware'
       when: upgrade_firmware | bool
     - role: 'roles/shell'
-    - role: 'roles/fedora/kelkoo'
+    - role: 'roles/kelkoo'
       when: install_kelkoo | bool
-    - role: 'roles/fedora/vscode'
+    - role: 'roles/vscode'
       when: install_vscode | bool
