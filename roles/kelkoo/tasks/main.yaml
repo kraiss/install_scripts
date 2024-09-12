@@ -72,7 +72,7 @@
         line: "-Dsbt.override.build.repos=true"
     - name: sbt - Configure kelkoo sbt repos
       ansible.builtin.copy:
-        src: "files/sbt-repositories"
+        src: "files/.sbt/repositories"
         dest: "~/.sbt/repositories"
         mode: '0644'
 - name: npm
@@ -98,7 +98,7 @@
         state: directory
     - name: Python - Add pip config
       ansible.builtin.copy:
-        src: "files/pip.conf"
+        src: "files/.config/pip/pip.conf"
         dest: "~/.config/pip/pip.conf"
         mode: '0644'
 - name: podman
@@ -116,7 +116,7 @@
         state: directory
     - name: podman - Add pip config
       ansible.builtin.copy:
-        src: "files/registries.conf"
+        src: "files/.config/containers/registries.conf"
         dest: "~/.config/containers/registries.conf"
         mode: '0644'
       
