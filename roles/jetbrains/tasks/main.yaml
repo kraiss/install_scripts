@@ -1,0 +1,9 @@
+- name: Download JetBrains Toolbox
+  become: true
+  ansible.builtin.unarchive:
+    src: "https://data.services.jetbrains.com/products/download?platform=linux&code=TBA"
+    dest: "/opt"
+    remote_src: yes
+    extra_opts: ['--strip-components=1']
+- name: Start Jetbrain Toolbox
+  ansible.builtin.shell: (nohup /opt/jetbrains-toolbox < /dev/null > /dev/null 2>&1 &)

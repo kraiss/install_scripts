@@ -12,6 +12,9 @@
     - name: install_vscode
       prompt: Do you want to install VS Code (yes/no)?
       private: false
+    - name: install_jetbrains
+      prompt: Do you want to install JetBrains Toolbox (for IntelliJ) (yes/no)?
+      private: false
   roles:
     - role: 'roles/firmware'
       when: upgrade_firmware | bool
@@ -20,3 +23,5 @@
       when: install_kelkoo | bool
     - role: 'roles/vscode'
       when: install_vscode | bool
+    - role: 'roles/jetbrains'
+      when: install_jetbrains | bool
