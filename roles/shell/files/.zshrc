@@ -1,16 +1,13 @@
 autoload -U zmv
 autoload -U zcp
-# Charge les couleurs
 autoload -U colors
 colors
 
 autoload -Uz vcs_info
-
 autoload -Uz compinit
 compinit -u
 
 autoload zargs
-
 zmodload zsh/complist
 
 magic-abbrev-expand() {
@@ -38,7 +35,6 @@ zle -N auto-ls
 zle -N accept-line auto-ls
 zle -N other-widget auto-ls
 
-
 zle -N magic-abbrev-expand
 zle -N no-magic-abbrev-expand
 bindkey ' ' magic-abbrev-expand
@@ -52,7 +48,7 @@ bindkey '^x ' no-magic-abbrev-expand
 setopt AUTO_PUSHD
 setopt PUSHDMINUS
 #setopt printeightbit
-setopt CORRECT # Correction des commandes
+#setopt CORRECT # Correction des commandes
 setopt COMPLETE_IN_WORD # Complétion à l'interieur d'un mot
 setopt ALWAYS_TO_END # Positionne à la fin lors de la complétion
 setopt APPENDHISTORY # Ajout les historiques
@@ -189,6 +185,7 @@ XZ_OPT=-e9
 export EDITOR=vim
 
 ## Require zsh-syntax-highlighting
-if [[ -f "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
-  source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+export ZSH_HIGHLIGHT_HOME=$(whereis zsh-syntax-highlighting | awk '{print $2}')
+if [[ -f "$ZSH_HIGHLIGHT_HOME/zsh-syntax-highlighting.zsh" ]]; then
+  source "$ZSH_HIGHLIGHT_HOME/zsh-syntax-highlighting.zsh"
 fi
