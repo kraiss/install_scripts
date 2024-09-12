@@ -17,8 +17,7 @@
 - name: Install from dnf
   become: true
   ansible.builtin.dnf:
-    name: "{{ item }}"
+    name: 
+      - ansible-lint
+      - zsh-syntax-highlighting
     state: latest
-  loop:
-    - ansible-lint
-    - zsh-syntax-highlighting
