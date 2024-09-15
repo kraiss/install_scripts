@@ -160,7 +160,7 @@ function setDirAliasIfExist() {
 
 # Permettre à less di lire plusieurs formats
 #export LESSCHARSET=latin9
-eval $(lesspipe)
+# eval $(lesspipe)
 
 export LESS="-FSRX" # voir man
 # Permet d'avoir les man en couleur
