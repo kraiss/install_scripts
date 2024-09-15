@@ -1,0 +1,12 @@
+---
+- name: Web Home - Create dir in opt
+  become: true
+  ansible.builtin.file:
+    path: "/opt/web-home"
+    state: directory
+    mode: '0755'
+- name: Web Home - Copy files
+  ansible.builtin.copy:
+    src: "files/web-home/"
+    dest: "/opt/web-home/"
+    mode: '0644'

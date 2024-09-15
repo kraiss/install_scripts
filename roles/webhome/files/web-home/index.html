@@ -1,0 +1,118 @@
+<head>
+    <script>
+        const g = (title, links) => ({title, links});
+        const l = (title, url, img) => ({title, url, img: 'assets/' + img})
+        const bookmarks = [
+            g('My Workspace', [
+                l('Outlook', 'https://outlook.office365.com/mail/', 'outlook.png'),
+                l('Team Board', 'https://kelkoogroup.atlassian.net/jira/software/c/projects/BAC/boards/123', 'team-board.png'),
+                l('Acti Time', 'http://actitime.corp.kelkoo.net:8080/actitime/user/submit_tt.do', 'actitime.png'),
+            ]),
+            g('Code & Docs', [
+                l('Kelkoo Gitlab', 'http://gitlab.corp.kelkoo.net/', 'gitlab.svg'),
+                l('Docs - Offers', 'https://confluence.kelkoo.net/pages/viewpage.action?pageId=25379758', 'docs.png'),
+                l('Docs - Corp IT', 'https://confluence.kelkoo.net/pages/viewpage.action?spaceKey=CUD&title=CorpIT+User+Documentation', 'docs.png'),
+            ]),
+            g('Providers', [
+                l('Google CSS', 'https://comparisonshoppingservices.google.com/cssc/css_domains', 'google_css.svg'),
+                l('Google Ads', 'https://ads.google.com/aw/overview', 'google_ads.svg'),
+            ]),
+            g('HR', [
+                l('Hi Bob', 'https://app.hibob.com/home', 'bob.jpg'),
+            ])
+        ];
+    </script>
+    <style>
+        html {
+            --bg-color: #1E1E1E;
+            --nav-bg-color: #3C3C3C;
+            --text-color: #EBE5DA;
+            --l-radius: 10px;
+            --l-width: 100px;
+
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: Helvetica, sans-serif;
+            margin: 0;
+        }
+        body, header {
+            margin: 0;
+        }
+        img {aspect-ratio: 1;}
+        .title {font-weight: bold;}
+        footer {height: 50px; /* Allow more scrolling */ }
+
+        header {
+            background-color: var(--nav-bg-color);
+            height: 50px;
+        }
+        header img {
+            width: 50px;
+        }
+        header .title {
+            display: inline-block;
+            font-size: 36px;
+            margin: 6px;
+            vertical-align: top;
+        }
+        
+        .group {
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+        .group .title {
+            margin: 5px 0;
+            font-size: 26px;
+        }
+
+        .link-box {
+            display: inline-block;
+            border-radius: var(--l-radius);
+            margin-left: 10px;
+            width: var(--l-width);
+        }
+        .link-box img {
+            background-color: white;
+            border-radius: var(--l-radius);
+            box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
+            width: var(--l-width);
+        }
+        .link-box a {
+            text-decoration: none;
+        }
+        .link-box small {
+            margin-left: 10px;
+            color: var(--text-color);
+        }
+    </style>
+    <title>Kelkoo</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.png">
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+</head>
+<body>
+    <header>
+        <img src="assets/favicon.png"/>
+        <div class="title">My Bookmarks</div>
+    </header>
+    <div id="kelkoo-bookmarks"></div>
+    <footer></footer>
+
+    <script>
+        Handlebars.registerPartial('link', `
+            <div class="link-box">
+                <a href="{{link.url}}">
+                    <img src="{{link.img}}"/>
+                    <small>{{link.title}}</small>
+                </a>
+            </div>
+        `);
+        Handlebars.registerPartial('linkGroup', ` 
+            <div class="group">
+                <div class="title">{{group.title}}</div>
+                {{#each group.links}} {{>link link=.}} {{/each}}
+            </div>
+        `);
+        document.getElementById('kelkoo-bookmarks').innerHTML = Handlebars
+            .compile("{{#each bookmarks}} {{>linkGroup group=.}} {{/each}}")({bookmarks});
+    </script>
+</body>
