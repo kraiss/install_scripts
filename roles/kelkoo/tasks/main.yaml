@@ -2,17 +2,17 @@
 - name: Install kelkoo packages
   become: true
   ansible.builtin.dnf:
-    name: 
+    name:
       - ca-certificates-kelkoogroup
       - kelkoo-dev-tools
       - shiva-build-scripts
       - java-21-openjdk-devel
       - discord
     state: latest
-- name: Install additional firefox codec (see https://pagure.io/fedora-workstation/issue/84) 
+- name: Install additional firefox codec (see https://pagure.io/fedora-workstation/issue/84)
   become: true
   ansible.builtin.dnf:
-    name: 
+    name:
       - gstreamer1-plugin-openh264
       - mozilla-openh264
     state: latest
@@ -21,7 +21,7 @@
     - name: Maven - Remove conflicting if present
       become: true
       ansible.builtin.dnf:
-        name: 
+        name:
           - maven
           - maven-lib
         state: absent
@@ -29,6 +29,7 @@
       ansible.builtin.file:
         path: "{{ item }}"
         state: directory
+        mode: '0755'
       loop:
         - "~/.m2"
         - "~/apache-maven"
@@ -37,7 +38,7 @@
         url: "{{ kelkoo.maven.settings }}"
         dest: "~/.m2/settings.xml"
         mode: '0644'
-    - name: Maven - shell config 
+    - name: Maven - shell config
       ansible.builtin.copy:
         src: "files/.kelkoorc"
         dest: "~/.kelkoorc"
@@ -46,14 +47,14 @@
       ansible.builtin.lineinfile:
         path: "{{ item }}"
         line: "source ~/.kelkoorc"
-      loop: 
+      loop:
         - "~/.bashrc"
         - "~/.zshrc"
     - name: Maven - Download binaries
       ansible.builtin.unarchive:
         src: "{{ kelkoo.maven.package }}"
         dest: "~/apache-maven"
-        remote_src: yes
+        remote_src: true
 - name: sbt
   block:
     - name: sbt - Install sbt
@@ -61,10 +62,11 @@
       ansible.builtin.dnf:
         name: "sbt"
         state: latest
-    - name: sbt - Create workdirs
+    - name: sbt - Create config fir
       ansible.builtin.file:
         path: "~/.sbt"
         state: directory
+        mode: '0755'
     - name: sbt - Add build repo override option
       become: true
       ansible.builtin.lineinfile:
@@ -83,7 +85,7 @@
         name: "nodejs"
         state: latest
     - name: npm - Add kelkoo repo configs
-      ansible.builtin.shell: "npm config set {{ item }}" 
+      ansible.builtin.command: "npm config set {{ item }}" # noqa: no-changed-when
       loop: "{{ kelkoo.npm.config_list }}"
 - name: Python
   block:
@@ -96,27 +98,28 @@
       ansible.builtin.file:
         path: "~/.config/pip/"
         state: directory
+        mode: '0755'
     - name: Python - Add pip config
       ansible.builtin.copy:
         src: "files/.config/pip/pip.conf"
         dest: "~/.config/pip/pip.conf"
         mode: '0644'
-- name: podman
+- name: Podman
   block:
-    - name: podman - Install podman
+    - name: Podman - Install podman
       become: true
       ansible.builtin.dnf:
-        name: 
+        name:
           - podman
           - podman-docker
         state: latest
-    - name: podman - Create pip conf dir
+    - name: Podman - Create pip conf dir
       ansible.builtin.file:
         path: "~/.config/containers/"
         state: directory
-    - name: podman - Add pip config
+        mode: '0755'
+    - name: Podman - Add pip config
       ansible.builtin.copy:
         src: "files/.config/containers/registries.conf"
         dest: "~/.config/containers/registries.conf"
         mode: '0644'
-      

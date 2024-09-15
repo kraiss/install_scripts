@@ -16,12 +16,13 @@
       prompt: Do you want to install JetBrains Toolbox (for IntelliJ) (yes/no)?
       private: false
   roles:
-    - role: 'roles/firmware'
+    - role: 'firmware'
       when: upgrade_firmware | bool
-    - role: 'roles/shell'
-    - role: 'roles/kelkoo'
+    - role: 'shell'
+    - role: 'webhome'
+    - role: 'kelkoo'
       when: install_kelkoo | bool
-    - role: 'roles/vscode'
+    - role: 'vscode'
       when: install_vscode | bool
-    - role: 'roles/jetbrains'
+    - role: 'jetbrains'
       when: install_jetbrains | bool

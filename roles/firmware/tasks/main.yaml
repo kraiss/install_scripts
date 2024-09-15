@@ -1,6 +1,7 @@
+---
 - name: Firmware mgr refresh
-  ansible.builtin.command: 'fwupdmgr refresh --force'
+  ansible.builtin.command: 'fwupdmgr refresh --force' # noqa: no-changed-when
   become: true
 - name: Firmware update
-  ansible.builtin.command: 'fwupdmgr update'
+  ansible.builtin.command: 'fwupdmgr update' # noqa: no-changed-when
   become: true

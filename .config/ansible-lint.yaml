@@ -1,5 +1,12 @@
 ---
 profile: production
+offline: true
+
+kinds:
+  - playbook: "setup.{yml,yaml}"
+  - tasks: "**/tasks/*.yml"
+  - vars: "**/vars/*.yml"
+  - handlers: "**/handlers/*.yml"
 exclude_paths:
   - "**/files/*"
 
@@ -11,11 +18,6 @@ enable_list:
   - no-same-owner # opt-in
   - name[prefix] # opt-in
   - yaml
-
-offline: true
-
-kinds:
-  - playbook: "setup.{yml,yaml}"
-  - tasks: "**/tasks/*.yml"
-  - vars: "**/vars/*.yml"
-  - handlers: "**/handlers/*.yml"
+skip_list:
+  - package-latest
+  - name[casing]
