@@ -2,39 +2,47 @@
     <script>
         const g = (title, links) => ({title, links});
         const l = (title, url, img) => ({title, url, img: 'assets/' + img})
-        const bookmarks = [
+        const kbmColumn1 = [
             g('My Workspace', [
                 l('Outlook', 'https://outlook.office365.com/mail/', 'outlook.png'),
                 l('Kelkoo Gitlab', 'http://gitlab.corp.kelkoo.net/', 'gitlab.svg'),
                 l('Team Board', 'https://kelkoogroup.atlassian.net/jira/software/c/projects/BAC/boards/123', 'team-board.png'),
                 l('Acti Time', 'http://actitime.corp.kelkoo.net:8080/actitime/user/submit_tt.do', 'actitime.png'),
-                l('Offers', 'https://confluence.kelkoo.net/pages/viewpage.action?pageId=25379758', 'docs_offers.png'),
-                l('Offers BO', 'https://owbo.corp.kelkoo.net/offer-workflow/publisher-name', 'docs.png'),
             ]),
-            g('DevOps tools', [
+            g('Offers', [
+                l('Offers', 'https://confluence.kelkoo.net/pages/viewpage.action?pageId=25379758', 'docs_offers.png'),
+                l('OWBO', 'https://owbo.corp.kelkoo.net/offer-workflow/publisher-name', 'owbo.png'),
+            ]),
+            g('Build', [
                 l('Shiva', 'https://shiva-conf.infra.kelkoo.net/app/searchNodes', 'shiva.png'),
-                l('RA tools', 'https://release.corp.kelkoo.net/app', 'ra-tools.png'),
                 l('Argo CD', 'https://argocd.k8s.kelkoo.net', 'argo.png'),
                 l('Jenkins', 'http://jenkins.corp.kelkoo.net', 'jenkins.png'),
                 l('Dev Tools', 'https://confluence.kelkoo.net/display/PKC/Shiva', 'docs_devtools.png'),
-                l('Kloud', 'https://kloud.infra.kelkoo.net/', 'docs.png'),
-                l('KDP', 'https://confluence.kelkoo.net/pages/viewpage.action?pageId=21174819', 'docs_kloud.bmp'),
-            ]),
-            g('Infra & Monitoring', [
-                l('ELK - DEV', 'https://kibana.dev.kelkoo.net/app/home#/', 'elk.png'),
-                l('ELK - DC1', 'http://kibana.dc1.kelkoo.net/app/home#/', 'elk.png'),
-                l('Grafana - DC1', 'https://grafana.dc1.kelkoo.net/d/WFyYWxU4k/services-status?orgId=1&refresh=1m', 'grafana.png'),
-                l('Azkaban - DC1', 'http://dc1-nsa-dev-azkaban-01.dev.dc1.kelkoo.net:8081/', 'docs.png'),
-            ]),
-            g('Providers', [
-                l('Google CSS', 'https://comparisonshoppingservices.google.com/cssc/css_domains', 'google_css.svg'),
-                l('Google Ads', 'https://ads.google.com/aw/overview', 'google_ads.svg'),
             ]),
             g('HR & IT', [
                 l('Hi Bob', 'https://app.hibob.com/home', 'bob.jpg'),
                 l('Serv Desk', 'https://kelkoogroup.atlassian.net/servicedesk/customer/portals', 'service_desk.png'),
                 l('Corp IT', 'https://confluence.kelkoo.net/pages/viewpage.action?spaceKey=CUD&title=CorpIT+User+Documentation', 'docs.png'),
-            ])
+            ]),
+        ];
+        const kbmColumn2 = [
+            g('Run', [
+                l('RA tools', 'https://release.corp.kelkoo.net/app', 'ra-tools.png'),
+                l('Kloud', 'https://kloud.infra.kelkoo.net/', 'kloud.jpg'),
+                l('KDP', 'https://confluence.kelkoo.net/pages/viewpage.action?pageId=21174819', 'docs_kloud.bmp'),
+            ]),
+            g('DEV', [
+                l('DEV-ELK', 'https://kibana.dev.kelkoo.net/app/home#/', 'elk.png'),
+            ]),
+            g('PROD', [
+                l('DC1-ELK', 'http://kibana.dc1.kelkoo.net/app/home#/', 'elk.png'),
+                l('DC1-Grafana', 'https://grafana.dc1.kelkoo.net/d/WFyYWxU4k/services-status?orgId=1&refresh=1m', 'grafana.png'),
+                l('DC1-Azkaban', 'http://dc1-nsa-dev-azkaban-01.dev.dc1.kelkoo.net:8081/', 'docs.png'),
+            ]),
+            g('Providers', [
+                l('Google CSS', 'https://comparisonshoppingservices.google.com/cssc/css_domains', 'google_css.svg'),
+                l('Google Ads', 'https://ads.google.com/aw/overview', 'google_ads.svg'),
+            ]),
         ];
     </script>
     <style>
@@ -54,8 +62,8 @@
             margin: 0;
         }
         img {aspect-ratio: 1;}
-        .title {font-weight: bold;}
         footer {height: 50px; /* Allow more scrolling */ }
+        .title {font-weight: bold;}
 
         header {
             background-color: var(--nav-bg-color);
@@ -69,6 +77,11 @@
             font-size: 36px;
             margin: 6px;
             vertical-align: top;
+        }
+
+        .kelkoo-bookmarks {
+            display: grid;
+            grid-template-columns: auto auto;
         }
         
         .group {
@@ -109,7 +122,10 @@
         <img src="assets/favicon.png"/>
         <div class="title">My Bookmarks</div>
     </header>
-    <div id="kelkoo-bookmarks"></div>
+    <div class="kelkoo-bookmarks">
+        <div id="kbm-col1"></div>
+        <div id="kbm-col2"></div>
+    </div>
     <footer></footer>
 
     <script>
@@ -127,7 +143,8 @@
                 {{#each group.links}} {{>link link=.}} {{/each}}
             </div>
         `);
-        document.getElementById('kelkoo-bookmarks').innerHTML = Handlebars
-            .compile("{{#each bookmarks}} {{>linkGroup group=.}} {{/each}}")({bookmarks});
+        const column = Handlebars.compile("{{#each bookmarks}} {{>linkGroup group=.}} {{/each}}");
+        document.getElementById('kbm-col1').innerHTML = column({bookmarks: kbmColumn1});
+            document.getElementById('kbm-col2').innerHTML = column({bookmarks: kbmColumn2});
     </script>
 </body>
