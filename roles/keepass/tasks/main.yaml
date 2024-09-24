@@ -1,0 +1,7 @@
+---
+- name: Install keepass
+  become: true
+  ansible.builtin.dnf:
+    name:
+      - keepass
+    state: latest

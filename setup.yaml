@@ -12,6 +12,9 @@
     - name: install_vscode
       prompt: Do you want to install VS Code (yes/no)?
       private: false
+    - name: install_keepass
+      prompt: Do you want to install KeePass (yes/no)?
+      private: false
     - name: install_jetbrains
       prompt: Do you want to install JetBrains Toolbox (for IntelliJ) (yes/no)?
       private: false
@@ -24,5 +27,7 @@
       when: install_kelkoo | bool
     - role: 'vscode'
       when: install_vscode | bool
+    - role: 'keepass'
+      when: install_keepass | bool
     - role: 'jetbrains'
       when: install_jetbrains | bool
