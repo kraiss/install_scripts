@@ -123,3 +123,5 @@
         src: "files/.config/containers/registries.conf"
         dest: "~/.config/containers/registries.conf"
         mode: '0644'
+    - name: Podman - Add symlink for test containers
+      ansible.builtin.command: "systemctl --user enable podman.socket --now" # noqa: no-changed-when
