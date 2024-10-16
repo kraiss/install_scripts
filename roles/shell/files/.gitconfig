@@ -90,6 +90,8 @@
 [pull]
 	rebase = merges
 	ff = only
+[rebase]
+        autosquash = true
 [rerere]
 	enabled = 1
 	autoupdate = 1
