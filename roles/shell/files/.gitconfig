@@ -9,7 +9,7 @@
 	# When your mind wander and you type git twice
 	git = !sh -c 'git $1' -
 	# When you come back after vacations
-	all-force-clean = !sh -c 'git all drop; git all mainup; git all brclean'
+	all-force-clean = !sh -c 'git all drop && git all mainup && git all brclean' -
 
 	# helper aliases
 	branch-get-current = rev-parse --abbrev-ref HEAD
