@@ -1,7 +1,7 @@
 kelkoo:
   maven:
     settings: 'http://gitlab.corp.kelkoo.net/pack-conf/maven-configuration/-/raw/master/src/main/rpm/etc/maven/settings.xml'
-    package: 'https://artifactory.corp.kelkoo.net/artifactory/external/org/apache/maven/apache-maven/3.9.4/apache-maven-3.9.4-bin.tar.gz'
+    package: 'https://artifactory.corp.kelkoo.net/artifactory/external/org/apache/maven/apache-maven/3.9.9/apache-maven-3.9.9-bin.tar.gz'
   npm:
     config_list:
       - 'registry=https://artifactory.corp.kelkoo.net/artifactory/api/npm/npm-remote-repos/'
