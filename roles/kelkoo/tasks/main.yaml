@@ -125,3 +125,16 @@
         mode: '0644'
     - name: Podman - Add symlink for test containers
       ansible.builtin.command: "systemctl --user enable podman.socket --now" # noqa: no-changed-when
+- name: Kubectl
+  block:
+    - name: Kubectl - Add yum repo
+      become: true
+      ansible.builtin.copy:
+        src: "files/kubernetes.repo"
+        dest: "/etc/yum.repos.d/kubernetes.repo"
+        mode: '0644'
+    - name: Kubectl - dnf install
+      become: true
+      ansible.builtin.dnf:
+        name: "kubectl"
+        state: latest
