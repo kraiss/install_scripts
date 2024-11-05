@@ -61,6 +61,7 @@
 
 	# git push aliases
 	pushup = !git rev-parse --abbrev-ref HEAD | xargs git push -u origin $1
+	pushmr = !git rev-parse --abbrev-ref HEAD | xargs git push -o merge_request.create -u origin $1
 	pushf = !git rev-parse --abbrev-ref HEAD | xargs git push -u origin $1 --force-with-lease
 	pushff = !git rev-parse --abbrev-ref HEAD | xargs git brd $1 | xargs git push -u origin $1
 
