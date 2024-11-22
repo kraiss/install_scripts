@@ -77,6 +77,17 @@
         src: "files/.sbt/repositories"
         dest: "~/.sbt/repositories"
         mode: '0644'
+    # fixes: https://stackoverflow.com/questions/77000440/sbt-user-limit-of-inotify-instances-reached-or-too-many-open-files
+    - name: sbt - Allow high fs inotify
+      ansible.builtin.copy:
+        src: "files/etc/sysctl.d/90-inotify.conf"
+        dest: "/etc/sysctl.d/90-inotify.conf"
+        mode: '0644'
+      become: true
+      register: inotify_setup
+    - ansible.builtin.command: sysctl --system
+      become: true
+      when: inotify_setup.changed
 - name: npm
   block:
     - name: npm - Install nodejs/npm
