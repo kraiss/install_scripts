@@ -30,3 +30,12 @@ gpg --armor --export <key>
 ```sh
 chsh -s $(which zsh)
 ```
+
+### Resize LV
+
+```sh
+# you can use "sudo parted" with "print free" to check free disk
+lvdisplay
+lvextend -L +2G /dev/Volume00/tmp
+resize2fs /dev/Volume00/tmp
+```
