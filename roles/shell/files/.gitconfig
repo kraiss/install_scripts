@@ -40,6 +40,7 @@
 	## Switch to main branch, pull and fetch
 	main-update = !git switch-main && git pull --rebase && git fetch -p
 	mainup = main-update
+	relocate = remote set-url origin
 
 	# Amend aliases
 	amend = commit --amend
