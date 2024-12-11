@@ -108,6 +108,9 @@ precmd() {
   else
     PROMPT='%{$fg[red]%}%n%{$reset_color%}@%M:%{$reset_color%}${vcs_info_msg_0_}%f%(?.. [%?])%# '
   fi
+  if [[ "${VIRTUAL_ENV}" ]]; then
+    PROMPT="${PROMPT}[py-venv]$ "
+  fi
 }
 vcs_info
 if [[ -z "${vcs_info_msg_0_}" ]]; then
@@ -189,3 +192,7 @@ export ZSH_HIGHLIGHT_HOME=$(whereis zsh-syntax-highlighting | awk '{print $2}')
 if [[ -f "$ZSH_HIGHLIGHT_HOME/zsh-syntax-highlighting.zsh" ]]; then
   source "$ZSH_HIGHLIGHT_HOME/zsh-syntax-highlighting.zsh"
 fi
+
+for rc in .zshrc-*; do
+  source $rc
+done
