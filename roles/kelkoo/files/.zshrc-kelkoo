@@ -4,5 +4,5 @@ export MAVEN_OPTS="-Xms256m -Xmx1024m"
 export PATH="$M2:$PATH"
 export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
 
-alias git-amend-scalafmt="sbt scalafmtAll; git add .; git amendf; git pushf"
-alias git-amend-prettier="mvn prettier:write; git add .; git amendf; git pushf"
+alias git-scalafmt-amend="sbt scalafmtAll; git add .; git amendf; git pushf"
+alias git-prettier-amend="mvn prettier:write; git add .; git amendf; git pushf"
