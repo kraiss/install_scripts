@@ -1,15 +1,23 @@
+##############################
+# Load Modules and functions #
+##############################
+
+# Autoload necessary modules
 autoload -U zmv
 autoload -U zcp
 autoload -U colors
-colors
-
 autoload -Uz vcs_info
 autoload -Uz compinit
-compinit -u
-
 autoload zargs
 zmodload zsh/complist
 
+# Initialize colors
+colors
+
+# Initialize completion system
+compinit -u
+
+# Function to expand abbreviations
 magic-abbrev-expand() {
     local MATCH
     LBUFFER="${LBUFFER%%(#m)[_a-zA-Z0-9]#}"
@@ -17,86 +25,94 @@ magic-abbrev-expand() {
     zle self-insert
 }
 
+# Function to prevent magic abbreviation expansion
 no-magic-abbrev-expand() {
-  LBUFFER+=' '
+    LBUFFER+=' '
 }
 
+# Function to automatically list directory contents if no command is entered
 auto-ls () {
-  if [[ $#BUFFER -eq 0 ]]; then
-      echo ""
-      ls --color
-      zle redisplay
-  else
-      zle .$WIDGET
-  fi
+    if [[ $#BUFFER -eq 0 ]]; then
+        echo ""
+        ls --color
+        zle redisplay
+    else
+        zle .$WIDGET
+    fi
 }
 
+# Bind auto-ls to specific widgets
 zle -N auto-ls
 zle -N accept-line auto-ls
 zle -N other-widget auto-ls
 
+# Bind abbreviation expansion functions to keys
 zle -N magic-abbrev-expand
 zle -N no-magic-abbrev-expand
 bindkey ' ' magic-abbrev-expand
 bindkey '^x ' no-magic-abbrev-expand
-#############################
-# Configuration des options #
-#############################
 
-# Permet d'ajouter les répertoires dans les quels on navigue dans une pile
-# de manière automatique
+
+#####################
+# Configure Options #
+#####################
+
+# Change to a directory just by typing its name
+setopt AUTOCD
+# Automatically push the old directory onto the directory stack when changing directories
 setopt AUTO_PUSHD
+# Use a minus sign to rotate the directory stack when using 'pushd'
 setopt PUSHDMINUS
-#setopt printeightbit
-#setopt CORRECT # Correction des commandes
-setopt COMPLETE_IN_WORD # Complétion à l'interieur d'un mot
-setopt ALWAYS_TO_END # Positionne à la fin lors de la complétion
-setopt APPENDHISTORY # Ajout les historiques
-# Pour avoir le même historique dans tous les shells
-setopt INC_APPEND_HISTORY SHARE_HISTORY
-# Mode verbose (date, ...) ; incompatible avec les autres shells
+
+# Disable verification when using "!cmd"
+unsetopt HIST_VERIFY
+# Remove duplicate entries in the history file, keeping only the last occurrence
+setopt HIST_IGNORE_ALL_DUPS
+# When searching the history with the zsh command editor, do not show the same line more than once, even if it was recorded multiple times
+setopt HIST_FIND_NO_DUPS
+# Append history entries to the history file, rather than overwriting it
+setopt APPENDHISTORY
+# Incrementally append commands to the history file as they are entered
+setopt INC_APPEND_HISTORY
+# Share history between all sessions
+setopt SHARE_HISTORY
+# Record timestamp and duration of each command in the history file
 setopt EXTENDED_HISTORY
 
-setopt AUTOCD # Faire un cd sans cd
-setopt NOTIFY # Notifie instantanément les fin de process
-setopt EXTENDEDGLOB # Permet d'utiliser le find de zsh
-setopt NULL_GLOB
-setopt GLOB_DOTS
+# Prevent the shell from being stopped by the SIGHUP signal
 setopt NOHUP
+# Notify when a job running in the background finishes
+setopt NOTIFY
 
-unsetopt HIST_VERIFY # Supprime la vérification lors de l'usage de "!cmd"
-unsetopt LIST_AMBIGUOUS # Modifie la manière dont est gérée l'autocomplétement
-
-# Supprime les  répétitions dans le fichier  d'historique, ne conservant
-# que la dernière occurrence ajoutée
-setopt HIST_IGNORE_ALL_DUPS
-
-# La recherche dans  l'historique avec l'éditeur de commandes  de zsh ne
-# montre  pas  une même  ligne  plus  d'une fois,  même  si  elle a  été
-# enregistrée
-setopt HIST_FIND_NO_DUPS
-
-# Permet d'utiliser des variables en prompt
+# Change the way autocompletion is handled
+unsetopt LIST_AMBIGUOUS
+# Move the cursor to the end of the word when completing
+setopt ALWAYS_TO_END
+# Allow completion to occur anywhere in the word
+setopt COMPLETE_IN_WORD
+# Allow the use of variables in the prompt
 setopt PROMPT_SUBST
 
-# Gestion des raccourcis (emacs ou vi)
-# les deux formes fonctionnent
-#set -o emacs
-#bindkey -v
+# Allow patterns that do not match any files to expand to an empty string
+setopt NULL_GLOB
+# Include hidden files (those starting with a dot) in filename generation
+setopt GLOB_DOTS
+# Enable extended globbing syntax
+setopt EXTENDEDGLOB
 
-# Améliore les messages d'auto-complètement
+# Improve autocompletion messages
 zstyle :compinstall filename '${HOME}/.zshrc'
 zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
 zstyle ':completion:*:warnings' format '%BDésolé, rien de trouvé pour: %d%b'
 zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=36=31"
 
-# Modifie la forme des infos de CVS
+# Change the format of cvs_info
 zstyle ':vcs_info:*' actionformats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
 zstyle ':vcs_info:*' formats '%F{5}(%f%s:%b%F{5})%F{3}-%F{5}[%F{2}%r/%S%F{5}]%f '
 zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
 
 #########################
-## Définition du prompt #
+## Prompt configuration #
 #########################
 export RPROMPT="[%{$fg[green]%}%*%{$reset_color%}]"
 export PS2='>'
@@ -132,9 +148,9 @@ abbreviations=(
   'Iw'    '| wc'
 )
 
-################################
-# Initialisation des variables #
-################################
+###############################
+# Initialize useful variables #
+###############################
 
 # Gestion de lhistorique
 HISTFILE=~/.histfile
@@ -157,23 +173,22 @@ function setDirAliasIfExist() {
     [[ -d "$2" ]] && hash -d "$1"="$2"
 }
 
-#########################
-# Configuration de less #
-#########################
+##################
+# Configure less #
+##################
 
-# Permettre à less di lire plusieurs formats
-#export LESSCHARSET=latin9
-# eval $(lesspipe)
+export LESS="-FSRX"
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'
+export LESS_TERMCAP_ue=$'\E[0m'
 
-export LESS="-FSRX" # voir man
-# Permet d'avoir les man en couleur
-export LESS_TERMCAP_mb=$'\E[01;31m'    # début de blink
-export LESS_TERMCAP_md=$'\E[01;31m'    # début de gras
-export LESS_TERMCAP_me=$'\E[0m'        # fin
-export LESS_TERMCAP_so=$'\E[01;44;33m' # début de la ligne d`état
-export LESS_TERMCAP_se=$'\E[0m'        # fin
-export LESS_TERMCAP_us=$'\E[01;32m'    # début de souligné
-export LESS_TERMCAP_ue=$'\E[0m'        # fin
+#######################
+# Other Configuration #
+#######################
 
 export GREP_OPTIONS="--color=auto"
 
@@ -184,7 +199,6 @@ export LC_ALL="en_US.UTF-8"
 export LANGUAGE="en_US.UTF-8"
 
 XZ_OPT=-e9
-
 export EDITOR=vim
 
 ## Require zsh-syntax-highlighting
@@ -193,6 +207,7 @@ if [[ -f "$ZSH_HIGHLIGHT_HOME/zsh-syntax-highlighting.zsh" ]]; then
   source "$ZSH_HIGHLIGHT_HOME/zsh-syntax-highlighting.zsh"
 fi
 
+# Load additional configuration and flavours
 for rc in .zshrc-*; do
   source $rc
 done
