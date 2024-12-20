@@ -130,6 +130,9 @@ setopt EXTENDEDGLOB
 # Aliases and abbrev #
 ######################
 
+# Rewrite del key as delete char
+bindkey "^[[3~" delete-char
+
 # Function to expand abbreviations
 magic-abbrev-expand() {
     local MATCH
