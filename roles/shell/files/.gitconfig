@@ -5,7 +5,7 @@
 [alias]
 	debug = !GIT_TRACE=1 git
 	# Execute a git command in subfolders
-	all = !"for f in *; do echo '---' && echo $f && git -C $f $@; done; echo completed git all "
+	all = !"for f in *; do echo '---' && echo $f && git -C $f \"$@\"; done; echo completed git all "
 	# When your mind wander and you type git twice
 	git = !sh -c 'git $1' -
 	# When you come back after vacations
@@ -14,6 +14,7 @@
 	# helper aliases
 	branch-get-current = rev-parse --abbrev-ref HEAD
 	branch-get-default = !git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'
+	branch-get-base = !git merge-base $(git branch-get-default) $(git branch-get-current)
 	switch-main = !git branch-get-default | xargs git switch $1
 
 	# Basic aliases
@@ -32,8 +33,9 @@
 
 	# Rebase and pull aliases
 	rebi = !sh -c 'git rebase -i HEAD~$1'
+	squash = !git rebase -i --autosquash --autostash $(git branch-get-base)
 	## Rebase current on main branch
-	main-rebase = !sh -c 'git branch-main-rebase \"$(git branch-get-current)\"' -
+	main-rebase = !git branch-main-rebase $(git branch-get-current)
 	mainreb = main-rebase
 	## Rebase branch on main branch
 	branch-main-rebase = !sh -c 'MAIN=$(git branch-get-default) && git main-update && git switch \"$1\" && git rebase $MAIN' -
