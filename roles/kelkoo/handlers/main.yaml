@@ -1,0 +1,4 @@
+- name: Sysctl update
+  ansible.builtin.command: sysctl --system
+  become: true
+  listen: sysctl update

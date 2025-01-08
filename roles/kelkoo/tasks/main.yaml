@@ -16,6 +16,13 @@
       - gstreamer1-plugin-openh264
       - mozilla-openh264
     state: latest
+- name: Disable IPv6 (required for smooth VPN experience)
+  ansible.builtin.copy:
+    src: "files/etc/sysctl.d/90-disable-ipv6.conf"
+    dest: "/etc/sysctl.d/90-disable-ipv6.conf"
+    mode: '0644'
+  notify: sysctl update
+  become: true
 - name: Maven
   block:
     - name: Maven - Remove conflicting if present
@@ -83,11 +90,8 @@
         src: "files/etc/sysctl.d/90-inotify.conf"
         dest: "/etc/sysctl.d/90-inotify.conf"
         mode: '0644'
+      notify: sysctl update
       become: true
-      register: inotify_setup
-    - ansible.builtin.command: sysctl --system
-      become: true
-      when: inotify_setup.changed
 - name: npm
   block:
     - name: npm - Install nodejs/npm
