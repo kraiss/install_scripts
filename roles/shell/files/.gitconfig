@@ -47,6 +47,7 @@
 	# Amend aliases
 	amend = commit --amend
 	amendf = commit --amend --no-edit
+	amendff = !git add . && git amendf && git pushf
 
 	# Reset aliases
 	resetn = !sh -c 'git reset --soft HEAD~$1'
