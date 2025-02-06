@@ -8,8 +8,6 @@
 	all = !"for f in *; do echo '---' && echo $f && git -C $f \"$@\"; done; echo completed git all "
 	# When your mind wander and you type git twice
 	git = !sh -c 'git $1' -
-	# When you come back after vacations
-	all-force-clean = !sh -c 'git all drop && git all mainup && git all brclean' -
 
 	# helper aliases
 	branch-get-current = rev-parse --abbrev-ref HEAD
@@ -56,6 +54,7 @@
 	back = resetn 1
 	## Reset hard current changes
 	drop = reset --hard
+	fdrop = !git drop && git mainup && git brclean
 
 	# Commit, amend and push aliases
 	## Fast commit - take current changes, commit and push
