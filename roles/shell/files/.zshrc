@@ -222,6 +222,6 @@ if [[ -f "$ZSH_HIGHLIGHT_HOME/zsh-syntax-highlighting.zsh" ]]; then
 fi
 
 # Load additional configuration and flavours
-for rc in .zshrc-*; do
+for rc in ~/.zshrc-*; do
   source $rc
 done
