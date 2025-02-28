@@ -5,7 +5,8 @@
 [alias]
 	debug = !GIT_TRACE=1 git
 	# Execute a git command in subfolders
-	all = !"for f in *; do echo '---' && echo $f && git -C $f \"$@\"; done; echo completed git all "
+	all = !"for f in *; do echo '---' && echo $f && git -C $f \"$@\"; done; echo 'completed git all'"
+	allr = !"for f in */*; do echo '---' && echo $f && git -C $f \"$@\"; done; echo 'completed git all'"
 	# When your mind wander and you type git twice
 	git = !sh -c 'git $1' -
 
