@@ -91,19 +91,38 @@
 	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all --date=local
 	oneline = log --pretty=oneline --abbrev-commit --graph
 	who = shortlog -sne
+[core]
+	# Change comment char to ";" to allow reference to gitlab issues, ex: "#1234"
+	commentChar = ";"
+	autocrlf = input
+	untrackedCache = true
+[commit]
+	gpgsign = true
+[diff]
+	algorithm = histogram
+	colorMoved = plain
+	mnemonicPrefix = true
+	renames = true
+[fetch]
+	prune = true
+	pruneTags = true
+	all = true
 [pull]
 	rebase = merges
 	ff = only
+[push]
+	default = simple
+	autoSetupRemote = true
+	followTags = true
 [rebase]
-        autosquash = true
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
 [rerere]
 	enabled = 1
 	autoupdate = 1
-[commit]
-	gpgsign = true
-[core]
-	commentChar = ";"
-	autocrlf = input
+[tag]
+	sort = version:refname
 [color]
 	ui = auto
 [color "branch"]

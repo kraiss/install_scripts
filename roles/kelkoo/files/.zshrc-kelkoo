@@ -7,3 +7,6 @@ export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
 alias git-scalafmt-amend="sbt scalafmtAll; git add .; git amendf; git pushf"
 alias git-prettier-amend="mvn prettier:write; git add .; git amendf; git pushf"
 alias sbt-deprecation="sbt '; set ThisBuild/scalacOptions ++= Seq(\"-unchecked\", \"-deprecation\") ; test'"
+
+kk-open-offers-renovate="firefox -url http://gitlab.corp.kelkoo.net/common/java-processing-healthcheck http://gitlab.corp.kelkoo.net/groups/search-v6/-/merge_requests http://gitlab.corp.kelkoo.net/groups/categories/-/merge_requests http://gitlab.corp.kelkoo.net/groups/pfs/-/merge_requests http://gitlab.corp.kelkoo.net/groups/cop/-/merge_requests http://gitlab.corp.kelkoo.net/groups/brand/-/merge_requests http://gitlab.corp.kelkoo.net/groups/product/-/merge_requests http://gitlab.corp.kelkoo.net/groups/nsa/-/merge_requests"
+kk-open-k8s-renovate="firefox -url http://gitlab.corp.kelkoo.net/k8s/k8sbackend/-/merge_requests http://gitlab.corp.kelkoo.net/k8s/k8sNetworkShoppingAds/-/merge_requests http://gitlab.corp.kelkoo.net/k8s/k8sSearch/-/merge_requests http://gitlab.corp.kelkoo.net/k8s/dockerfile-templates/-/merge_requests http://gitlab.corp.kelkoo.net/k8s/k8s-manifests-templates/-/merge_requests &"
