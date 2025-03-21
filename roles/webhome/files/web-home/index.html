@@ -4,17 +4,16 @@
         const l = (title, url, img) => ({title, url, img: 'assets/' + img})
         const kbmColumn1 = [
             g('My Workspace', [
-                l('Outlook', 'https://outlook.office365.com/mail/', 'outlook.png'),
                 l('Kelkoo Gitlab', 'http://gitlab.corp.kelkoo.net/', 'gitlab.svg'),
-                l('Team Board', 'https://kelkoogroup.atlassian.net/jira/software/c/projects/BAC/boards/123', 'team-board.png'),
-                l('Acti Time', 'http://actitime.corp.kelkoo.net:8080/actitime/user/submit_tt.do', 'actitime.png'),
-                l('Offers', 'https://confluence.kelkoo.net/pages/viewpage.action?pageId=25379758', 'docs_offers.png'),
+                l('Team Board', 'https://kelkoogroup.atlassian.net/jira/software/c/projects/TT/boards/186', 'jira.jpg'),
+                l('ActiTime', 'http://actitime.corp.kelkoo.net:8080/actitime/user/submit_tt.do', 'actitime.png'),
+                l('Confluence', 'https://confluence.kelkoo.net/pages/viewpage.action?pageId=217528480', 'confluence.jpg'),
             ]),
-            g('BO', [
-                l('Offer', 'https://owbo.corp.kelkoo.net/offer-workflow/publisher-name', 'owbo.png'),
+            g('Back Office', [
+                l('Superset', 'https://superset.prod.kelkoo.net/superset/welcome/', 'superset.png'),
                 l('Publisher', 'https://publisher.corp.kelkoo.net/app/publisher/1685', 'bo_publisher.png'),
                 l('Merchant', 'https://merchant.prod.kelkoo.net/app/merchants', 'bo_merchant.png'),
-                l('Superset', 'https://superset.prod.kelkoo.net/superset/welcome/', 'superset.png'),
+                l('Offer', 'https://owbo.corp.kelkoo.net/offer-workflow/publisher-name', 'owbo.png'),
             ]),
             g('Build', [
                 l('Shiva', 'https://shiva-conf.infra.kelkoo.net/app/searchNodes', 'shiva.png'),
@@ -23,7 +22,7 @@
                 l('DevTools', 'https://confluence.kelkoo.net/display/PKC/Shiva', 'docs_devtools.png'),
                 l('SourceBot', 'https://sourcebot-prod.k8s.kelkoo.net/', 'sourcebot.png'),
             ]),
-            g('Architecture', [
+            g('Archi', [
                 l('Tech Radar', 'https://tech-radar.k8s.kelkoo.net/', 'tech_radar.png'),
                 l('Excellence', 'https://confluence.kelkoo.net/display/EN/Engineering+excellence+topics+-+2023', 'excellence.png'),
                 l('Archi', 'https://confluence.kelkoo.net/display/AR/Architecture+Home', 'archi.png'),
@@ -38,27 +37,25 @@
         ];
         const kbmColumn2 = [
             g('Run', [
-                l('RA tools', 'https://release.corp.kelkoo.net/app', 'ra-tools.png'),
-                l('Kloud', 'https://kloud.infra.kelkoo.net/', 'kloud.jpg'),
-                l('KDP', 'https://confluence.kelkoo.net/pages/viewpage.action?pageId=21174819', 'docs_kloud.bmp'),
+                l('Data Dome', 'https://app.datadome.co/dashboard/threat', 'datadome.jpg'),
+                l('DC1-ELK', 'http://kibana.dc1.kelkoo.net/app/home#/', 'elk.png'),
+                l('DC1-Grafana', 'https://grafana.dc1.kelkoo.net/d/WFyYWxU4k/services-status?orgId=1&refresh=1m', 'grafana.png'),
             ]),
             g('DEV', [
                 l('Azkaban', 'http://dc1-nsa-dev-azkaban-01.dev.dc1.kelkoo.net:8081/', 'docs.png'),
                 l('ELK', 'https://kibana.dev.kelkoo.net/app/home#/', 'elk.png'),
                 l('YARN', 'http://dc1-kdp-dev-yarn-01.dev.dc1.kelkoo.net:8088/cluster/apps/RUNNING', 'hadoop_yarn.webp'),
             ]),
-            g('PROD', [
-                l('DC1-ELK', 'http://kibana.dc1.kelkoo.net/app/home#/', 'elk.png'),
-                l('DC1-Grafana', 'https://grafana.dc1.kelkoo.net/d/WFyYWxU4k/services-status?orgId=1&refresh=1m', 'grafana.png'),
+            g('Tools', [
+                l('RA tools', 'https://release.corp.kelkoo.net/app', 'ra-tools.png'),
+                l('Kloud', 'https://kloud.infra.kelkoo.net/', 'kloud.jpg'),
+                l('KDP', 'https://confluence.kelkoo.net/pages/viewpage.action?pageId=21174819', 'docs_kloud.bmp'),
             ]),
-            g('Providers', [
+            g('Offers Providers', [
                 l('Google CSS', 'https://comparisonshoppingservices.google.com/cssc/css_domains', 'google_css.svg'),
                 l('Google Ads', 'https://ads.google.com/aw/overview', 'google_ads.svg'),
                 l('Google Cloud', 'https://console.cloud.google.com/bigquery?inv=1&invt=Abn9Qg&project=kelkootopproductsandbrands&ws=!1m0', 'google_cloud.png'),
                 l('Bing Ads', 'https://ui.ads.microsoft.com', 'bing_ads.png'),
-            ]),
-            g('Tracking', [
-                l('Data Dome', 'https://app.datadome.co/dashboard/threat', 'datadome.jpg'),
             ]),
         ];
     </script>
