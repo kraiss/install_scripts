@@ -9,5 +9,5 @@ alias git-prettier-amend="mvn prettier:write; git add .; git amendf; git pushf"
 alias sbt-deprecation="sbt '; set ThisBuild/scalacOptions ++= Seq(\"-unchecked\", \"-deprecation\") ; test'"
 
 kk-open-tracking-mrs() {
-  nohup firefox -url http://gitlab.corp.kelkoo.net/common/java-processing-healthcheck/-/merge_requests http://gitlab.corp.kelkoo.net/groups/tracking/-/merge_requests http://gitlab.corp.kelkoo.net/k8s/k8stracking/-/merge_requests &
+  nohup firefox -url http://gitlab.corp.kelkoo.net/common/java-processing-healthcheck/-/merge_requests http://gitlab.corp.kelkoo.net/common/kelkoo-kafka-scala/-/merge_requests http://gitlab.corp.kelkoo.net/groups/tracking/-/merge_requests http://gitlab.corp.kelkoo.net/k8s/k8stracking/-/merge_requests &
 }
