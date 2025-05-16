@@ -6,7 +6,9 @@
       - ca-certificates-kelkoogroup
       - kelkoo-dev-tools
       - shiva-build-scripts
-      - java-21-openjdk-devel
+      - temurin-11-jdk
+      - temurin-17-jdk
+      - temurin-21-jdk
       - discord
     state: latest
 - name: Install additional firefox codec (see https://pagure.io/fedora-workstation/issue/84)
