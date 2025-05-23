@@ -3,6 +3,7 @@ export M2=$M2_HOME/bin
 export MAVEN_OPTS="-Xms256m -Xmx1024m"
 export PATH="$M2:$PATH"
 export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 alias git-scalafmt-amend="sbt scalafmtAll; git add .; git amendf; git pushf"
 alias git-prettier-amend="mvn prettier:write; git add .; git amendf; git pushf"
