@@ -97,6 +97,7 @@
 	commentChar = ";"
 	autocrlf = input
 	untrackedCache = true
+    excludesfile = ~/.gitignore
 [commit]
 	gpgsign = true
 [diff]

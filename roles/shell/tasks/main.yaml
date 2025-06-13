@@ -9,6 +9,11 @@
     src: "files/.gitconfig"
     dest: "~/.gitconfig"
     mode: '0644'
+- name: Copy global gitignore
+  ansible.builtin.copy:
+    src: "files/.gitignore"
+    dest: "~/.gitignore"
+    mode: '0644'
 - name: Copy basic ssh config
   ansible.builtin.copy:
     src: "files/.ssh/config"
