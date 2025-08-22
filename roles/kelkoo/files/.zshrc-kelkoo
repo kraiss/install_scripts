@@ -14,6 +14,7 @@ kk-open-tracking-mrs() {
     "http://gitlab.corp.kelkoo.net/dashboard/merge_requests?assignee_username=rassatpi"
     "http://gitlab.corp.kelkoo.net/groups/tracking/-/merge_requests"
     "http://gitlab.corp.kelkoo.net/k8s/k8stracking/-/merge_requests"
+    "http://gitlab.corp.kelkoo.net/frontend/r9-tracking/-/merge_requests"
     "http://gitlab.corp.kelkoo.net/common/kelkoo-kafka-scala/-/merge_requests"
     "http://gitlab.corp.kelkoo.net/common/java-processing-healthcheck/-/merge_requests"
     "http://gitlab.corp.kelkoo.net/common/kelkoo-default-renovate-config/-/merge_requests"
