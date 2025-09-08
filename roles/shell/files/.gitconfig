@@ -85,8 +85,10 @@
 	track = update-index --no-assume-unchanged
 	untrack = update-index --assume-unchanged
 	untracked = !git ls-files -v | grep "^[[:lower:]]"
+	ignored = ls-files -i --exclude-standard
 
-	# git log aliases
+	# git log and describe aliases
+	lasttag = describe --tags --abbrev=0
 	last = log -n 5 --oneline --no-merges
 	lc = !git oneline ORIG_HEAD.. --stat --no-merges
 	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all --date=local
