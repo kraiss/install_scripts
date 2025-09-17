@@ -24,5 +24,6 @@
   ansible.builtin.dnf:
     name:
       - ansible-lint
+      - fzf
       - zsh-syntax-highlighting
     state: latest
