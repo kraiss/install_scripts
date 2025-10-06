@@ -11,12 +11,12 @@ alias sbt-deprecation="sbt '; set ThisBuild/scalacOptions ++= Seq(\"-unchecked\"
 
 kk-open-tracking-mrs() {
   urls=(
-    "http://gitlab.corp.kelkoo.net/dashboard/merge_requests?assignee_username=rassatpi"
-    "http://gitlab.corp.kelkoo.net/groups/tracking/-/merge_requests"
-    "http://gitlab.corp.kelkoo.net/k8s/k8stracking/-/merge_requests"
-    "http://gitlab.corp.kelkoo.net/common/kelkoo-kafka-scala/-/merge_requests"
-    "http://gitlab.corp.kelkoo.net/common/java-processing-healthcheck/-/merge_requests"
-    "http://gitlab.corp.kelkoo.net/common/kelkoo-default-renovate-config/-/merge_requests"
+    "https://gitlab.corp.kelkoo.net/dashboard/merge_requests?assignee_username=rassatpi"
+    "https://gitlab.corp.kelkoo.net/groups/tracking/-/merge_requests"
+    "https://gitlab.corp.kelkoo.net/k8s/k8stracking/-/merge_requests"
+    "https://gitlab.corp.kelkoo.net/common/kelkoo-kafka-scala/-/merge_requests"
+    "https://gitlab.corp.kelkoo.net/common/java-processing-healthcheck/-/merge_requests"
+    "https://gitlab.corp.kelkoo.net/common/kelkoo-default-renovate-config/-/merge_requests"
   )
   nohup firefox ${urls[@]} &> /dev/null
 }
