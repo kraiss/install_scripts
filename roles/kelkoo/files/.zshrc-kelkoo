@@ -15,7 +15,7 @@ kk-opening-ops() {
     "https://superset.prod.kelkoo.net/superset/dashboard/190"
     "https://grafana.dc1.kelkoo.net/goto/af0wnb4ywd7nkb?orgId=1"
   )
-  nohup firefox ${urls[@]} &> /dev/null
+  nohup firefox ${urls[@]} > /dev/null &
 }
 
 kk-opening-daily-dev() {
@@ -27,7 +27,7 @@ kk-opening-daily-dev() {
     "https://gitlab.corp.kelkoo.net/dashboard/merge_requests?assignee_username=rassatpi"
     "https://debt-watcher-prod.k8s.kelkoo.net/?repo_groups=tracking"
   )
-  nohup firefox ${urls[@]} &> /dev/null
+  nohup firefox ${urls[@]} > /dev/null &
 }
 
 kk-opening-weekly-dev() {
@@ -36,5 +36,5 @@ kk-opening-weekly-dev() {
     "https://gitlab.corp.kelkoo.net/common/kelkoo-kafka-scala/-/merge_requests"
     "https://gitlab.corp.kelkoo.net/common/java-processing-healthcheck/-/merge_requests"
   )
-  nohup firefox ${urls[@]} &> /dev/null
+  nohup firefox ${urls[@]} > /dev/null &
 }
