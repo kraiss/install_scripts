@@ -12,8 +12,9 @@ alias sbt-deprecation="sbt '; set ThisBuild/scalacOptions ++= Seq(\"-unchecked\"
 kk-opening-ops() {
   urls=(
     "https://superset.prod.kelkoo.net/superset/dashboard/199"
-    "https://superset.prod.kelkoo.net/superset/dashboard/190"
+    "https://grafana.dc1.kelkoo.net/d/WFyYWxU4k/services-status?orgId=1"
     "https://grafana.dc1.kelkoo.net/goto/af0wnb4ywd7nkb?orgId=1"
+    "https://grafana.dc1.kelkoo.net/d/cc2421d2-d250-4d08-aca2-f8bbe4d2e784/real-time-leads?orgId=1"
   )
   nohup firefox ${urls[@]} > /dev/null &
 }
@@ -23,8 +24,7 @@ kk-opening-daily-dev() {
     "https://gitlab.corp.kelkoo.net/groups/tracking/-/merge_requests"
     "https://gitlab.corp.kelkoo.net/common/kelkoo-default-renovate-config/-/merge_requests"
     "https://gitlab.corp.kelkoo.net/common/debt-watcher/-/merge_requests"
-    "https://gitlab.corp.kelkoo.net/dashboard/merge_requests?reviewer_username=rassatpi"
-    "https://gitlab.corp.kelkoo.net/dashboard/merge_requests?assignee_username=rassatpi"
+    "https://gitlab.corp.kelkoo.net/dashboard/merge_requests"
     "https://debt-watcher-prod.k8s.kelkoo.net/?repo_groups=tracking"
   )
   nohup firefox ${urls[@]} > /dev/null &
