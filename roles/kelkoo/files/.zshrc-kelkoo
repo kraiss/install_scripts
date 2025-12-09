@@ -7,7 +7,7 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 alias git-scalafmt-amend="sbt scalafmtAll; git add .; git amendf; git pushf"
 alias git-prettier-amend="mvn prettier:write; git add .; git amendf; git pushf"
-alias git-spotless-amend="mvn prettier:write; git add .; git amendf; git pushf"
+alias git-spotless-amend="mvn spotless:apply; git add .; git amendf; git pushf"
 alias sbt-deprecation="sbt '; set ThisBuild/scalacOptions ++= Seq(\"-unchecked\", \"-deprecation\") ; test'"
 
 vpn-del-conn () {
