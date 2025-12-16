@@ -14,17 +14,25 @@ vpn-del-conn () {
   nmcli con down $1
 }
 
-kk-opening-ops() {
+kk-opening-ops-daily() {
+  urls=(
+    "https://grafana.dc1.kelkoo.net/d/WFyYWxU4k/services-status"
+    "https://svg.kelkoo.net/"
+    "https://opsgenie-dashboard-prod.k8s.kelkoo.net/"
+    "https://grafana.dc1.kelkoo.net/goto/af0wnb4ywd7nkb?orgId=1"
+  )
+  nohup firefox ${urls[@]} > /dev/null &
+}
+
+kk-opening-ops-weekly() {
   urls=(
     "https://superset.prod.kelkoo.net/superset/dashboard/199"
-    "https://grafana.dc1.kelkoo.net/d/WFyYWxU4k/services-status?orgId=1"
-    "https://grafana.dc1.kelkoo.net/goto/af0wnb4ywd7nkb?orgId=1"
     "https://grafana.dc1.kelkoo.net/d/cc2421d2-d250-4d08-aca2-f8bbe4d2e784/real-time-leads?orgId=1"
   )
   nohup firefox ${urls[@]} > /dev/null &
 }
 
-kk-opening-daily-dev() {
+kk-opening-dev-daily() {
   urls=(
     "https://gitlab.corp.kelkoo.net/groups/tracking/-/merge_requests"
     "https://gitlab.corp.kelkoo.net/common/kelkoo-default-renovate-config/-/merge_requests"
@@ -35,7 +43,7 @@ kk-opening-daily-dev() {
   nohup firefox ${urls[@]} > /dev/null &
 }
 
-kk-opening-weekly-dev() {
+kk-opening-dev-weekly() {
   urls=(
     "https://gitlab.corp.kelkoo.net/k8s/k8stracking/-/merge_requests"
     "https://gitlab.corp.kelkoo.net/common/kelkoo-kafka-scala/-/merge_requests"
