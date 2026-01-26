@@ -16,6 +16,9 @@
 	branch-get-base = !git merge-base $(git branch-get-default) $(git branch-get-current)
 	switch-main = !git branch-get-default | xargs git switch $1
 
+	# git fetch with a lavender smell
+	fatch = fetch --all --prune --prune-tags
+
 	# Basic aliases
 	ci = commit
 	cam = commit -am
@@ -39,7 +42,7 @@
 	## Rebase branch on main branch
 	branch-main-rebase = !sh -c 'MAIN=$(git branch-get-default) && git main-update && git switch \"$1\" && git rebase $MAIN' -
 	## Switch to main branch, pull and fetch
-	main-update = !git switch-main && git pull --rebase && git fetch -p
+	main-update = !git switch-main && git pull --rebase && git fatch
 	mainup = main-update
 	relocate = remote set-url origin
 
