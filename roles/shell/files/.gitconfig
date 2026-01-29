@@ -36,6 +36,7 @@
 	# Rebase and pull aliases
 	rebi = !sh -c 'git rebase -i HEAD~$1'
 	squash = !git rebase -i --autosquash --autostash $(git branch-get-base)
+	autosquash = !sh -c 'git -c sequence.editor=: squash'
 	## Rebase current on main branch
 	main-rebase = !git branch-main-rebase $(git branch-get-current)
 	mainreb = main-rebase
@@ -51,6 +52,7 @@
 
 	# Amend aliases
 	amend = commit --amend
+	amendi = !git fixup && git autosquash
 	amendf = commit --amend --no-edit
 	amendff = !git add . && git amendf && git pushf
 
