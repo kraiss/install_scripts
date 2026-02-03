@@ -51,3 +51,8 @@ kk-opening-dev-weekly() {
   )
   nohup firefox ${urls[@]} > /dev/null &
 }
+
+publisher-find-tracking-ids() {
+  pub_id=$1
+  curl -s "https://pmws.prod.dc1.kelkoo.net/hierarchy/list?publisherId=$pub_id" | jq 'map(.trackingId)'
+}
