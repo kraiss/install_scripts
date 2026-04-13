@@ -1,4 +1,37 @@
-.idea/*
+# OS files
 .DS_Store
-.vscode
+Thumbs.db
+Desktop.ini
+
+# Shell and terminal leftovers
 nohup.out
+
+# Editor and IDE files
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+*~
+.metals/
+
+# Environment and local overrides
+.env
+.env.*
+*.local
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+
+# Language and tool caches
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.cache/
+.gradle/
+
+# Common build/package outputs
+target/
+node_modules/
