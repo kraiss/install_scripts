@@ -12,9 +12,9 @@
 
 	# helper aliases
 	branch-get-current = rev-parse --abbrev-ref HEAD
-	branch-get-default = !git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'
+	branch-get-default = !sh -c 'ref=$(git symbolic-ref --quiet refs/remotes/origin/HEAD 2>/dev/null) && echo "${ref#refs/remotes/origin/}" || echo main' -
 	branch-get-base = !git merge-base $(git branch-get-default) $(git branch-get-current)
-	switch-main = !git branch-get-default | xargs git switch $1
+	switch-main = !git switch $(git branch-get-default)
 
 	# git fetch with a lavender smell
 	fatch = fetch --all --prune --prune-tags
@@ -34,7 +34,7 @@
 	unstash = stash apply
 
 	# Rebase and pull aliases
-	rebi = !sh -c 'git rebase -i HEAD~$1'
+	rebi = !git rebase -i $(git branch-get-base)
 	squash = !git rebase -i --autosquash --autostash $(git branch-get-base)
 	autosquash = !sh -c 'git -c sequence.editor=: squash'
 	## Rebase current on main branch
@@ -72,10 +72,9 @@
 	wip = !git add . && git ci -m WIP
 
 	# git push aliases
-	pushup = !git rev-parse --abbrev-ref HEAD | xargs git push -u origin $1
-	pushmr = !git rev-parse --abbrev-ref HEAD | xargs git push -o merge_request.create -u origin $1
-	pushf = !git rev-parse --abbrev-ref HEAD | xargs git push -u origin $1 --force-with-lease
-	pushff = !git rev-parse --abbrev-ref HEAD | xargs git brd $1 | xargs git push -u origin $1
+	pushup = !sh -c 'git push -u "${1:-origin}" "$(git branch-get-current)"' -
+	pushmr = !sh -c 'git push -o merge_request.create -u "${1:-origin}" "$(git branch-get-current)"' -
+	pushf = !sh -c 'git push -u "${1:-origin}" "$(git branch-get-current)" --force-with-lease' -
 
 	# git branch aliases
 	br = branch -vv
@@ -93,7 +92,7 @@
 	track = update-index --no-assume-unchanged
 	untrack = update-index --assume-unchanged
 	untracked = !git ls-files -v | grep "^[[:lower:]]"
-	ignored = ls-files -i --exclude-standard
+	ignored = ls-files -o -i --exclude-standard
 
 	# git log and describe aliases
 	lasttag = describe --tags --abbrev=0
@@ -108,7 +107,7 @@
 	commentChar = ";"
 	autocrlf = input
 	untrackedCache = true
-    excludesfile = ~/.gitignore
+	excludesfile = ~/.gitignore
 [commit]
 	gpgsign = true
 [diff]
