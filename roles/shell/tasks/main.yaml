@@ -14,6 +14,11 @@
     src: "files/.gitignore"
     dest: "~/.gitignore"
     mode: '0644'
+- name: Claude - user config
+  ansible.builtin.copy:
+    src: "files/.claude/"
+    dest: "~/.claude/"
+    mode: '0644'
 - name: Copy basic ssh config
   ansible.builtin.copy:
     src: "files/.ssh/config"
