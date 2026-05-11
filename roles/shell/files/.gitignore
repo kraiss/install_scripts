@@ -37,3 +37,6 @@ __pycache__/
 # Common build/package outputs
 target/
 node_modules/
+
+# Scratch files
+.scratch
