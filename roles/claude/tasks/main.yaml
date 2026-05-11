@@ -1,0 +1,15 @@
+---
+- name: Claude - download install script
+  ansible.builtin.get_url:
+    url: https://claude.ai/install.sh
+    dest: /tmp/claude-install.sh
+    mode: '0700'
+- name: Claude - run install script
+  ansible.builtin.command:
+    cmd: /tmp/claude-install.sh
+    creates: ~/.local/bin/claude
+- name: Claude - user config
+  ansible.builtin.copy:
+    src: "files/.claude/"
+    dest: "~/.claude/"
+    mode: '0644'

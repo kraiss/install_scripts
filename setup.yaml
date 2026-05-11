@@ -18,6 +18,9 @@
     - name: install_jetbrains
       prompt: Do you want to install JetBrains Toolbox (for IntelliJ) (yes/no)?
       private: false
+    - name: install_claude_code
+      prompt: Do you want to install Claude Code  (yes/no)?
+      private: false
   roles:
     - role: 'firmware'
       when: upgrade_firmware | bool
@@ -31,3 +34,5 @@
       when: install_keepass | bool
     - role: 'jetbrains'
       when: install_jetbrains | bool
+    - role: 'claude'
+      when: install_claude_code | bool
