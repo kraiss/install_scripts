@@ -15,6 +15,7 @@ nohup.out
 *~
 .metals/
 .bloop/
+metals.sbt
 
 # Environment and local overrides
 .env
