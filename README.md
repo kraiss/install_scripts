@@ -31,11 +31,19 @@ gpg --armor --export <key>
 chsh -s $(which zsh)
 ```
 
-### Resize LV
+### Resize LV - for dist upgrades mostly
 
 ```sh
 # you can use "sudo parted" with "print free" to check free disk
 lvdisplay
 lvextend -L +2G /dev/Volume00/tmp
 resize2fs /dev/Volume00/tmp
+```
+
+### Claude MCP onboarding
+
+```sh
+# SourceBot - Generate key then mcp add
+firefox https://sourcebot.kelkoo.net/~/settings/apiKeys
+claude mcp add --transport http kelkoo_sourcebot --scope user https://sourcebot.kelkoo.net/api/mcp --header "Authorization: Bearer API_SECRET_KEY"
 ```
