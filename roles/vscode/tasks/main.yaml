@@ -15,3 +15,11 @@
   ansible.builtin.dnf:
     name: "code"
     state: latest
+- name: List currently installed VS Code extensions
+  ansible.builtin.command: code --list-extensions
+  register: vscode_installed_extensions
+  changed_when: false
+- name: Install VS Code extensions
+  ansible.builtin.command: "code --install-extension {{ item }}"
+  loop: "{{ vscode.extensions }}"
+  when: item not in vscode_installed_extensions.stdout_lines
