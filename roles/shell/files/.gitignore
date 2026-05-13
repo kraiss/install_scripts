@@ -21,6 +21,7 @@ metals.sbt
 .env
 .env.*
 *.local
+.claude/settings.local.json
 
 # Logs and temporary files
 *.log
