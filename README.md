@@ -40,10 +40,16 @@ lvextend -L +2G /dev/Volume00/tmp
 resize2fs /dev/Volume00/tmp
 ```
 
-### Claude MCP onboarding
+### Claude onboarding
+
+#### MCP
 
 ```sh
 # SourceBot - Generate key then mcp add
 firefox https://sourcebot.kelkoo.net/~/settings/apiKeys
 claude mcp add --transport http kelkoo_sourcebot --scope user https://sourcebot.kelkoo.net/api/mcp --header "Authorization: Bearer API_SECRET_KEY"
+
+# Atlassian
+
+claude mcp add --scope user --transport sse atlassian https://mcp.atlassian.com/v1/sse
 ```

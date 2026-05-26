@@ -1,0 +1,21 @@
+{
+  "theme": "dark",
+  "statusLine": {
+    "type": "command",
+    "command": "input=$(cat); model=$(echo \"$input\" | jq -r '.model.display_name // empty'); used=$(echo \"$input\" | jq -r '.context_window.used_percentage // empty'); out=\"$model\"; [ -n \"$used\" ] && out=\"$out | ctx: $(printf '%.0f' \"$used\")% used\"; echo \"$out\""
+  },
+  "permissions": {
+    "deny": [
+      "mcp__atlassian__addCommentToJiraIssue",
+      "mcp__atlassian__addWorklogToJiraIssue",
+      "mcp__atlassian__createConfluenceFooterComment",
+      "mcp__atlassian__createConfluenceInlineComment",
+      "mcp__atlassian__createConfluencePage",
+      "mcp__atlassian__createIssueLink",
+      "mcp__atlassian__createJiraIssue",
+      "mcp__atlassian__editJiraIssue",
+      "mcp__atlassian__transitionJiraIssue",
+      "mcp__atlassian__updateConfluencePage"
+    ]
+  }
+}
